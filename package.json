@@ -1,0 +1,77 @@
+{
+  "name": "@yaohaixiao/message.js",
+  "version": "0.1.0",
+  "description": "message.js - 一个小巧实用的 JavaScript 提示信息工具库。",
+  "main": "message.min.js",
+  "scripts": {
+    "build:script": "rollup -c build/rollup.config.lib.js --bundleConfigAsCjs",
+    "build:style": "gulp build",
+    "build:svg": "node build/build.single.svg.js",
+    "build": "npm run lint:fix && npm run prettier:write && npm run build:style && npm run build:script && npm run build:svg",
+    "lint": "eslint",
+    "lint:fix": "npm run lint --cache --fix",
+    "prettier:check": "npx prettier --check \"./**/*.(js|less|vue)\"",
+    "prettier:write": "npx prettier --write \"./**/*.(js|less|vue)\"",
+    "test:unit": "jest --config jest.config.js",
+    "test": "npm run lint:fix && npm run prettier:write && npm run test:unit",
+    "prepare": "husky install",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yaohaixiao/message.js.git"
+  },
+  "keywords": [
+    "Javascript",
+    "parseURL"
+  ],
+  "author": "Robert Yao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yaohaixiao/message.js/issues"
+  },
+  "homepage": "https://github.com/yaohaixiao/message.js#readme",
+  "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "@babel/preset-env": "^7.14.8",
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
+    "@rollup/plugin-commonjs": "^25.0.3",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-terser": "^0.4.3",
+    "babel-jest": "^29.5.0",
+    "commitlint": "^17.4.4",
+    "conventional-changelog-cli": "^2.2.2",
+    "eslint": "^8.34.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-import-resolver-jest": "^3.0.2",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.15.1",
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-less": "^5.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-run": "^1.7.1",
+    "gulp-sourcemaps": "^3.0.0",
+    "husky": "^8.0.3",
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
+    "jest-html-reporter": "^3.7.0",
+    "less-plugin-autoprefix": "^2.0.0",
+    "lint-staged": "^13.1.2",
+    "prettier": "^2.8.4",
+    "rollup": "^3.26.0"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged",
+    "commit-msg": "commitlint"
+  },
+  "lint-staged": {
+    "src/**/*.(js|less|vue)": [
+      "npm run lint:fix",
+      "npm run prettier:write"
+    ]
+  }
+}

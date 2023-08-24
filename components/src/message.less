@@ -1,0 +1,228 @@
+@import './color';
+@import './font';
+@import './mixins';
+
+.mjs-message {
+  .radius_small();
+  .shadow_light_regular();
+  position: fixed;
+  z-index: 9999;
+  opacity: 0.1;
+  top: -50px;
+  left: 50%;
+  min-width: 160px;
+  height: 40px;
+  margin: 0;
+  padding: 0 50px;
+  line-height: 40px;
+  font-size: @font_size_small;
+  background-color: @white;
+  color: @third_text_color;
+  transition: all 0.5s ease-in-out;
+  transform: translateX(-50%);
+  overflow: hidden;
+
+  &__content {
+    .ellipsis(1);
+    margin: 0;
+    max-width: 700px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 13px;
+    color: @third_text_color;
+    overflow: hidden;
+  }
+
+  &__close,
+  &__icon {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  &__icon {
+    left: 0;
+    color: @white;
+
+    .mjs-icon {
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &__close {
+    right: 0;
+    cursor: pointer;
+    color: @fourth_text_color;
+
+    .mjs-icon {
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &:hover {
+      color: @third_text_color;
+    }
+  }
+
+  &_info {
+    .mjs-message__icon {
+      background-color: @primary_color;
+    }
+  }
+
+  &_warning {
+    .mjs-message__icon {
+      background-color: @warning_color;
+    }
+  }
+
+  &_success {
+    .mjs-message__icon {
+      background-color: @success_color;
+    }
+  }
+
+  &_error {
+    .mjs-message__icon {
+      background-color: @danger_color;
+    }
+  }
+
+  &_plain {
+    min-width: 190px;
+    padding: 0 50px 0 15px;
+
+    &.mjs-message {
+      &_info {
+        border-left: 5px solid @primary_color;
+        background-color: @info_tip_bg_color;
+      }
+
+      &_warning {
+        border-left: 5px solid @warning_color;
+        background-color: @warning_tip_bg_color;
+      }
+
+      &_success {
+        border-left: 5px solid @success_color;
+        background-color: @success_tip_bg_color;
+      }
+
+      &_error {
+        border-left: 5px solid @danger_color;
+        background-color: @danger_tip_bg_color;
+      }
+    }
+
+    .mjs-message__icon {
+      width: 0;
+      display: none;
+
+      .mjs-icon {
+        display: none;
+      }
+    }
+  }
+
+  &_light {
+    min-width: 180px;
+    padding: 0 40px;
+
+    &.mjs-message {
+      &_info {
+        .mjs-message__icon {
+          color: @primary_color;
+        }
+      }
+
+      &_warning {
+        .mjs-message__icon {
+          color: @warning_color;
+        }
+      }
+
+      &_success {
+        .mjs-message__icon {
+          color: @success_color;
+        }
+      }
+
+      &_error {
+        .mjs-message__icon {
+          color: @danger_color;
+        }
+      }
+    }
+
+    .mjs-message__icon {
+      background-color: @white;
+    }
+  }
+
+  &_round {
+    .radius(20px);
+
+    &.mjs-message {
+      &_default {
+        min-width: 180px;
+        padding: 0 40px;
+
+        .mjs-message__icon {
+          .radius(10px);
+          top: 10px;
+          left: 10px;
+          width: 20px;
+          height: 20px;
+        }
+
+        &.mjs-message_full-width {
+          min-width: 200px;
+          padding: 0 20px 0 40px;
+        }
+      }
+
+      &_plain {
+        min-width: 195px;
+        padding: 0 40px 0 20px;
+
+        &.mjs-message_full-width {
+          min-width: 215px;
+          padding: 0 20px;
+        }
+      }
+    }
+  }
+
+  &_full-width {
+    min-width: 200px;
+    padding: 0 10px 0 50px;
+
+    &.mjs-message {
+      &_plain {
+        min-width: 230px;
+        padding: 0 10px 0 15px;
+      }
+
+      &_light {
+        min-width: 210px;
+        padding: 0 10px 0 40px;
+      }
+    }
+  }
+
+  &_visible {
+    opacity: 1;
+  }
+}
