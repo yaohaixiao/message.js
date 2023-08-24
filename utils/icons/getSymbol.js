@@ -6,7 +6,7 @@ import SYMBOLS from './symbols'
  * @param {String} [iconSet]
  * @returns {String}
  */
-const getSymbol = (name, iconSet = 'icon') => {
+const getSymbol = (name, iconSet = 'mjs') => {
   const patternName = /id="(.*?)"/
   const patternSet = /^(\w+)-/
   const symbols = SYMBOLS

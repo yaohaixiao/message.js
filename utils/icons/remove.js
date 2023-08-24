@@ -3,8 +3,8 @@ import getSymbol from './getSymbol'
 import getSymbols from './getSymbols'
 import SYMBOLS from './symbols'
 
-const remove = (name, iconSet = 'icon') => {
-  const $icons = document.querySelector('#outline-icons')
+const remove = (name, iconSet = 'mjs') => {
+  const $icons = document.querySelector('#mjs-icons')
   const symbols = getSymbols()
   const target = getSymbol(name, iconSet)
   let index = -1

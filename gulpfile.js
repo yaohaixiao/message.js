@@ -26,7 +26,7 @@ const lint = () => {
 /* ==================== 编译代码的 gulp 任务 ==================== */
 const buildStyles = () => {
   return gulp
-    .src(['./components/message.less'], {
+    .src(['./components/src/message.less'], {
       allowEmpty: true
     })
     .pipe(sourcemaps.init())
@@ -42,7 +42,7 @@ const buildStyles = () => {
 
 const minifyStyle = () => {
   return gulp
-    .src(['./icon.css'], {
+    .src(['./message.css'], {
       allowEmpty: true
     })
     .pipe(sourcemaps.init())

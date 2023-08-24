@@ -5,7 +5,7 @@
  * @returns {String}
  */
 const stripScripts = (str) => {
-    return str.replace(/<script[^>]*>.*?<\/script>/gi, '')
+  return str.replace(/<script[^>]*>.*?<\/script>/gi, '')
 }
 
 export default stripScripts

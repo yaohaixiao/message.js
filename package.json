@@ -6,8 +6,7 @@
   "scripts": {
     "build:script": "rollup -c build/rollup.config.lib.js --bundleConfigAsCjs",
     "build:style": "gulp build",
-    "build:svg": "node build/build.single.svg.js",
-    "build": "npm run lint:fix && npm run prettier:write && npm run build:style && npm run build:script && npm run build:svg",
+    "build": "npm run lint:fix && npm run prettier:write && npm run build:style && npm run build:script",
     "lint": "eslint",
     "lint:fix": "npm run lint --cache --fix",
     "prettier:check": "npx prettier --check \"./**/*.(js|less|vue)\"",

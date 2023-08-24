@@ -5,7 +5,7 @@
  * @returns {String}
  */
 const stripHTML = (str) => {
-  let pattern = /(<([^>]+)>)/ig
+  let pattern = /(<([^>]+)>)/gi
 
   return str.replace(pattern, '')
 }

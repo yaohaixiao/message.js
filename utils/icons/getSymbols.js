@@ -9,7 +9,7 @@ import SYMBOLS from './symbols'
  * @param {String} [iconSet]
  * @returns {string[]|*}
  */
-const getSymbols = (name, iconSet = 'icon') => {
+const getSymbols = (name, iconSet = 'mjs') => {
   if (isString(name)) {
     return getSymbol(name, iconSet)
   }

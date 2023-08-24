@@ -14,7 +14,7 @@ const encodeHTML = (str) => {
   }
 
   return str.replace(/[&<>'"]/g, (tag) => {
-    return (CHARTS[tag] || tag)
+    return CHARTS[tag] || tag
   })
 }
 

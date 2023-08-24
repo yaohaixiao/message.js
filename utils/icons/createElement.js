@@ -16,7 +16,7 @@ import isSVG from '../types/isSVG'
 const createElement = (name, options = {}) => {
   const size = options.size || 0
   const color = options.color || ''
-  const iconSet = options.iconSet || ''
+  const iconSet = options.iconSet || 'mjs'
   const width = isArray(size) ? size[0] : size
   const height = isArray(size) ? size[1] : size
   const defaultRules = size ? `width:${width}px;height:${height}px;` : ''

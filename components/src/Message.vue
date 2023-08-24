@@ -38,6 +38,7 @@
 <script>
 import Icon from './Icon'
 
+import paint from '../../utils/icons/paint'
 import isFunction from '../../utils/types/isFunction'
 import later from '../../utils/lang/later'
 
@@ -47,6 +48,8 @@ const TYPES = {
   warning: 'warning',
   error: 'error'
 }
+
+paint()
 
 export default {
   name: 'MjsMessage',
