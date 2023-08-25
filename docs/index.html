@@ -34,71 +34,21 @@ const message = new Message({
 const message = new Message({
   dangerouslyUseHTMLString: true,
   message: '可选，&lt;a href="#beforeClose"&gt;beforeClose&lt;/a&gt; 用来指定提示信息关闭之前执行的回调函数。'
-})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-customClass">customClass</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">''</dd></dl><p>可选，(DIYer福利)设置自定义样式的 class 名称：</p><ul><li>'' - 采用默认 outline.js 的 UI 界面（默认值）；</li><li>设置自定义样式 - 自己根据需求设置个性化的 UI 界面；</li></ul><pre class="section__pre"><code class="section__code">// Default UI
-new Outline(Outline.DEFAULTS)
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">delay</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Number</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">2</dd></dl><p>可选，指定鼠标离开提示信息区域后，提示信息延迟关闭的时间（单位：秒）。</p><p>提示显示展示期间，用户将鼠标光标放置于提示信息区域时，提示信息将不会自动收起关闭，delay 指定的是鼠标离开提示信息区域后，提示信息延迟关闭的时间。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
 
-// Customized
-new Outline({
-  // 设置深色配置界面
-  customClass: 'theme-dark'
-})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-chapterTextFilter">chapterTextFilter</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Function</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">null</dd></dl><p>可选，API 文档中，正文的方法会添加参数等信息，例如：getChapters(headings, showCode, chapterTextFilter)。而在 chapters 导航菜单，我希望显示为 getChapters()，这时我们就可以借助 chapterTextFilter 回调函数。对原始的文本进行过滤，返回我们期望的 getChapters() 文本。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">text</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><p>chapterTextFilter() 回调函数有一个参数 text，返回的是当前 hx 标题中的文本。</p><pre class="section__pre"><code class="section__code">const defaults = Outline.DEFAULTS
-let outline
+const message = new Message({
+  // 鼠标离开提示信息区域 4 秒后，将自动关闭
+  delay: 4,
+  message: '可选，指定鼠标离开提示信息区域后，提示信息延迟关闭的时间（单位：秒）。'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">duration</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Number</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">6</dd></dl><p>可选，执行提示信息展示的时间（单位：秒）。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
 
-defaults.selector = 'h2,h3'
-defaults.title = false
-defaults.showCode = false
-defaults.position = 'sticky'
-defaults.parentElement = '#aside'
-defaults.scrollElement = '#main'
-defaults.articleElement = '#article'
-defaults.homepage = './index.html'
-defaults.git = 'https://github.com/yaohaixiao/outline.js'
-defaults.tags = 'https://github.com/yaohaixiao/outline.js/tags'
-defaults.issues = 'https://github.com/yaohaixiao/outline.js/issues'
-defaults.print = {
-  element: '#article',
-  title: 'Outline.js'
-}
-defaults.chapterTextFilter = (text) => {
-  return text.replace(/\(.*?\)/, '()')
-}
-outline = new Outline(Outline.DEFAULTS)</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-afterToggle">afterToggle</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Function</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">null</dd></dl><p>可选，当导航菜单隐藏或者显示的时候，会触发执行 afterToggle 回调函数。</p><p>说明：afterSticky() 回调函数的 this 上下文执行 outline.chapters 对象。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">closed</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Boolean</dd></dl><p>closed 参数值为 true 表示菜单处于隐藏状态，否则表示菜单处于显示状态</p><h5 class="section__h4">isSticky</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Boolean</dd></dl><p>isSticky 参数值为 true 表示（position:fixed）菜单处于模拟 sticky 定位（position:fixed）状态，否则表示菜单处于普通状态。</p><pre class="section__pre"><code class="section__code">const $header = document.querySelector('#header')
-const HEADER_STICKY = 'header_sticky'
-const defaults = Outline.DEFAULTS
-let outline
-
-defaults.position = 'fixed'
-defaults.parentElement = '#aside'
-defaults.stickyHeight = 86
-defaults.homepage = './index.html'
-defaults.afterSticky = function(closed, isStickying) {
-  const $nav = this.$el
-  const BORDER_RIGHT = 'utils-border-right'
-
-  if (closed) {
-    return false
-  }
-
-  if (isStickying) {
-    $nav.classList.add(BORDER_RIGHT)
-    $header.classList.add(HEADER_STICKY)
-  } else {
-    $nav.classList.remove(BORDER_RIGHT)
-    $header.classList.remove(HEADER_STICKY)
-  }
-}
-defaults.afterToggle = function(closed, isStickying) {
-  if (!isStickying) {
-    return false
-  }
-
-  if (closed) {
-    $header.classList.remove(HEADER_STICKY)
-  } else {
-    $header.classList.add(HEADER_STICKY)
-  }
-}
-outline = new Outline(Outline.DEFAULTS)</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-afterScroll">afterScroll</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Function</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">null</dd></dl><p>可选，当点击导航菜单、文章中的 anchor 图标（#）或者上下滚动按钮会触发滚动，afterScroll() 回调函数会在滚动结束后触发执行。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">target</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><p>afterScroll() 回调函数有一个参数 target，返回的是当前点击的 DOM 元素的名称：</p><ul><li>'anchor'：表示点击的是 anchor 图标，即文章中标题前的 “#” 图标，此时的 this 上下文指向 outline.anchors；</li><li>'chapter'：表示点击的是导航菜单的链接，此时的 this 上下文指向 outline.chapters；</li><li>'up'：表示点击的是工具栏的向上按钮，此时的 this 上下文指向 outline.toolbar；</li><li>'down'：表示点击的是工具栏的向下按钮，此时的 this 上下文指向 outline.toolbar；</li></ul><p>注意：因为配置 afterScroll 回调函数会因为 4 个不同的 DOM 触发，所以需要根据 target 返回的值和此时的 this 指向判断处理。</p><pre class="section__pre"><code class="section__code">const defaults = Outline.DEFAULTS
+const message = new Message({
+  // 提示信息区将在 14 秒后自动关闭
+  duration: 14,
+  message: '可选，执行提示信息展示的时间（单位：秒）。'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">effect</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">'default'</dd></dl><p>可选，指定提示信息的 UI 类型。</p><pre class="section__pre"><code class="section__code"></code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-afterScroll">afterScroll</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Function</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">null</dd></dl><p>可选，当点击导航菜单、文章中的 anchor 图标（#）或者上下滚动按钮会触发滚动，afterScroll() 回调函数会在滚动结束后触发执行。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">target</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><p>afterScroll() 回调函数有一个参数 target，返回的是当前点击的 DOM 元素的名称：</p><ul><li>'anchor'：表示点击的是 anchor 图标，即文章中标题前的 “#” 图标，此时的 this 上下文指向 outline.anchors；</li><li>'chapter'：表示点击的是导航菜单的链接，此时的 this 上下文指向 outline.chapters；</li><li>'up'：表示点击的是工具栏的向上按钮，此时的 this 上下文指向 outline.toolbar；</li><li>'down'：表示点击的是工具栏的向下按钮，此时的 this 上下文指向 outline.toolbar；</li></ul><p>注意：因为配置 afterScroll 回调函数会因为 4 个不同的 DOM 触发，所以需要根据 target 返回的值和此时的 this 指向判断处理。</p><pre class="section__pre"><code class="section__code">const defaults = Outline.DEFAULTS
 let outline
 
 defaults.position = 'fixed'
@@ -123,11 +73,18 @@ defaults.afterScroll = function(target) {
       break
   }
 }
-outline = new Outline(Outline.DEFAULTS)</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-git">git</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">''</dd></dl><p>可选，针对 API 文档类的文章页面，指定项目 git 仓库地址：</p><pre class="section__pre"><code class="section__code">const outline = new Outline(Outline.DEFAULTS)
+outline = new Outline(Outline.DEFAULTS)</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">message</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">''</dd></dl><p>可选，提示信息文本字符串。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
 
-// 侧边栏的 Toolbar 会多出一个 git 图标的按钮
-outline.reload({
-  git: 'https://github.com/yaohaixiao/outline.js'
+// 默认将转义 message 中的 HTML 的 < 转义为 &amp;lt;，> 转义为 &amp;gt;
+const message = new Message({
+  message: '可选，&lt;a href="#beforeClose"&gt;beforeClose&lt;/a&gt; 用来指定提示信息关闭之前执行的回调函数。'
+})
+
+// message 中的 HTML 链接将可以点击
+const message = new Message({
+  dangerouslyUseHTMLString: true,
+  message: '可选，&lt;a href="#beforeClose"&gt;beforeClose&lt;/a&gt; 用来指定提示信息关闭之前执行的回调函数。'
 })</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-articleElement">articleElement</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String|HTMLElement</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">'#article'</dd></dl><dl class="section__dl"><dt class="section__dt">String：</dt><dd class="section__dd">选择器字符串，默认值：html,body（即 window 窗口）;</dd></dl><dl class="section__dl"><dt class="section__dt">HTMLElement：</dt><dd class="section__dd">'DOM 元素;</dd></dl><p>可选，用来指定页面中显示文章正文的 DOM 节点或者选择器字符串。</p><pre class="section__pre"><code class="section__code">// Default Selector
 const outline = new Outline(Outline.DEFAULTS)
 

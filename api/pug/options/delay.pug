@@ -1,25 +1,23 @@
 section.section
   header.section__header
-    h3#option-customClass.section__h3 customClass
+    h3.section__h3 delay
   div.section__content
     h4.section__h4 Description
     dl.section__dl
       dt.section__dt Type：
-      dd.section__dd String
+      dd.section__dd Number
     dl.section__dl
       dt.section__dt Default：
-      dd.section__dd ''
-    p 可选，(DIYer福利)设置自定义样式的 class 名称：
-    ul
-      li '' - 采用默认 outline.js 的 UI 界面（默认值）；
-      li 设置自定义样式 - 自己根据需求设置个性化的 UI 界面；
+      dd.section__dd 2
+    p 可选，指定鼠标离开提示信息区域后，提示信息延迟关闭的时间（单位：秒）。
+    p 提示显示展示期间，用户将鼠标光标放置于提示信息区域时，提示信息将不会自动收起关闭，delay 指定的是鼠标离开提示信息区域后，提示信息延迟关闭的时间。
     pre.section__pre
       code.section__code.
-        // Default UI
-        new Outline(Outline.DEFAULTS)
+        // 导入 Message 模块
+        import Message from '@yaohaixiao/message.js/message'
 
-        // Customized
-        new Outline({
-          // 设置深色配置界面
-          customClass: 'theme-dark'
+        const message = new Message({
+          // 鼠标离开提示信息区域 4 秒后，将自动关闭
+          delay: 4,
+          message: '可选，指定鼠标离开提示信息区域后，提示信息延迟关闭的时间（单位：秒）。'
         })

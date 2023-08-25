@@ -1,6 +1,6 @@
 section.section
   header.section__header
-    h3#option-git.section__h3 git
+    h3.section__h3 message
   div.section__content
     h4.section__h4 Description
     dl.section__dl
@@ -9,12 +9,19 @@ section.section
     dl.section__dl
       dt.section__dt Default：
       dd.section__dd ''
-    p 可选，针对 API 文档类的文章页面，指定项目 git 仓库地址：
+    p 可选，提示信息文本字符串。
     pre.section__pre
       code.section__code.
-        const outline = new Outline(Outline.DEFAULTS)
+        // 导入 Message 模块
+        import Message from '@yaohaixiao/message.js/message'
 
-        // 侧边栏的 Toolbar 会多出一个 git 图标的按钮
-        outline.reload({
-          git: 'https://github.com/yaohaixiao/outline.js'
+        // 默认将转义 message 中的 HTML 的 < 转义为 &amp;lt;，> 转义为 &amp;gt;
+        const message = new Message({
+          message: '可选，&lt;a href="#beforeClose"&gt;beforeClose&lt;/a&gt; 用来指定提示信息关闭之前执行的回调函数。'
+        })
+
+        // message 中的 HTML 链接将可以点击
+        const message = new Message({
+          dangerouslyUseHTMLString: true,
+          message: '可选，&lt;a href="#beforeClose"&gt;beforeClose&lt;/a&gt; 用来指定提示信息关闭之前执行的回调函数。'
         })
