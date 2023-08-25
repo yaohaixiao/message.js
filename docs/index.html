@@ -1,0 +1,458 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="keywords" content="message.js,JavaScript,message,Toolkit"><meta name="description" content="message.js - 一个小巧实用的 JavaScript 提示信息工具库。"><link rel="shortcut icon" href="./favicon.ico"><title>message.js | 一个小巧实用的 JavaScript 提示信息工具库。</title><link rel="preload" href="css/docs.min.css" as="style"><link rel="preload" href="css/docs.min.js" as="script"><link href="css/docs.min.css" rel="stylesheet" type="text/css"></head><body><div class="docs" id="docs"><aside class="aside" id="aside"><header class="aside__header"><h2 class="aside__h2">API Documentation</h2></header></aside><main class="main" id="main"><header class="main__header" id="header"><h1 class="main__h1"><strong class="main__name">message.</strong>js</h1><p class="main__tagline">message.js - 一个小巧实用的 JavaScript 提示信息工具库。</p></header><div class="main__cdn" id="cdn"><pre class="main__pre"><code>&lt;script src="https://cdn.jsdelivr.net/gh/yaohaixiao/message.js/message.min.js"&gt;&lt;/script&gt;</code></pre></div><div class="main__download" id="download"><a class="main__button" href="https://github.com/yaohaixiao/message.js/archive/refs/heads/main.zip" target="_blank">Download Zip</a></div><article id="article"><section class="section"><header class="section__header"><h2 class="section__title">Options</h2></header><div class="section__content"><p>message.js 有者丰富的配置选项，以不同的展示方式展示提示信息。</p></div><section class="section"><header class="section__header"><h3 class="section__h3">beforeClose</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Function</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">null</dd></dl><p>可选，用来指定提示信息关闭之前执行的回调函数。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
+
+const message = new Message({
+  beforeClose: () => {
+    Message.warning({
+      message: 'message.js 提示窗口即将关闭'
+    })
+  },
+  message: '可选，beforeClose 用来指定提示信息关闭之前执行的回调函数。'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">closable</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Boolean</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">true</dd></dl><p>可选，指定是否有关闭按钮；</p><pre class="section__pre"><code class="section__">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
+
+const message = new Message({
+  // 提示信息界面没有关闭按钮
+  closable: false,
+  message: '可选，closable 指定是否有关闭按钮'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">customClass</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">''</dd></dl><p>可选，如果 message.js 中自带的 UI 样式无法满足开发中的应用场景的要求可以添加 customClass 以扩展修改界面样式。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
+
+const message = new Message({
+  // 设置深色样式
+  customClass: 'theme-dark',
+  message: '可选，如果 message.js 中自带的 UI 样式无法满足开发中的应用场景的要求可以添加 customClass 以扩展修改界面样式。'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">dangerouslyUseHTMLString</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Boolean</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">false</dd></dl><p>可选，用来显示的提示信息文本是否允许有 HTML 字符串。</p><p>默认提示信息应该为普通的文本，在需要显示 HTML 字符的时候配置 dangerouslyUseHTMLString，否则 HTML 字符串将通过 encodeHTML() 方法转义 HTML 字符。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
+
+// 默认将转义 message 中的 HTML 的 < 转义为 &amp;lt;，> 转义为 &amp;gt;
+const message = new Message({
+  message: '可选，&lt;a href="#beforeClose"&gt;beforeClose&lt;/a&gt; 用来指定提示信息关闭之前执行的回调函数。'
+})
+
+// message 中的 HTML 链接将可以点击
+const message = new Message({
+  dangerouslyUseHTMLString: true,
+  message: '可选，&lt;a href="#beforeClose"&gt;beforeClose&lt;/a&gt; 用来指定提示信息关闭之前执行的回调函数。'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-customClass">customClass</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">''</dd></dl><p>可选，(DIYer福利)设置自定义样式的 class 名称：</p><ul><li>'' - 采用默认 outline.js 的 UI 界面（默认值）；</li><li>设置自定义样式 - 自己根据需求设置个性化的 UI 界面；</li></ul><pre class="section__pre"><code class="section__code">// Default UI
+new Outline(Outline.DEFAULTS)
+
+// Customized
+new Outline({
+  // 设置深色配置界面
+  customClass: 'theme-dark'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-chapterTextFilter">chapterTextFilter</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Function</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">null</dd></dl><p>可选，API 文档中，正文的方法会添加参数等信息，例如：getChapters(headings, showCode, chapterTextFilter)。而在 chapters 导航菜单，我希望显示为 getChapters()，这时我们就可以借助 chapterTextFilter 回调函数。对原始的文本进行过滤，返回我们期望的 getChapters() 文本。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">text</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><p>chapterTextFilter() 回调函数有一个参数 text，返回的是当前 hx 标题中的文本。</p><pre class="section__pre"><code class="section__code">const defaults = Outline.DEFAULTS
+let outline
+
+defaults.selector = 'h2,h3'
+defaults.title = false
+defaults.showCode = false
+defaults.position = 'sticky'
+defaults.parentElement = '#aside'
+defaults.scrollElement = '#main'
+defaults.articleElement = '#article'
+defaults.homepage = './index.html'
+defaults.git = 'https://github.com/yaohaixiao/outline.js'
+defaults.tags = 'https://github.com/yaohaixiao/outline.js/tags'
+defaults.issues = 'https://github.com/yaohaixiao/outline.js/issues'
+defaults.print = {
+  element: '#article',
+  title: 'Outline.js'
+}
+defaults.chapterTextFilter = (text) => {
+  return text.replace(/\(.*?\)/, '()')
+}
+outline = new Outline(Outline.DEFAULTS)</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-afterToggle">afterToggle</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Function</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">null</dd></dl><p>可选，当导航菜单隐藏或者显示的时候，会触发执行 afterToggle 回调函数。</p><p>说明：afterSticky() 回调函数的 this 上下文执行 outline.chapters 对象。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">closed</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Boolean</dd></dl><p>closed 参数值为 true 表示菜单处于隐藏状态，否则表示菜单处于显示状态</p><h5 class="section__h4">isSticky</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Boolean</dd></dl><p>isSticky 参数值为 true 表示（position:fixed）菜单处于模拟 sticky 定位（position:fixed）状态，否则表示菜单处于普通状态。</p><pre class="section__pre"><code class="section__code">const $header = document.querySelector('#header')
+const HEADER_STICKY = 'header_sticky'
+const defaults = Outline.DEFAULTS
+let outline
+
+defaults.position = 'fixed'
+defaults.parentElement = '#aside'
+defaults.stickyHeight = 86
+defaults.homepage = './index.html'
+defaults.afterSticky = function(closed, isStickying) {
+  const $nav = this.$el
+  const BORDER_RIGHT = 'utils-border-right'
+
+  if (closed) {
+    return false
+  }
+
+  if (isStickying) {
+    $nav.classList.add(BORDER_RIGHT)
+    $header.classList.add(HEADER_STICKY)
+  } else {
+    $nav.classList.remove(BORDER_RIGHT)
+    $header.classList.remove(HEADER_STICKY)
+  }
+}
+defaults.afterToggle = function(closed, isStickying) {
+  if (!isStickying) {
+    return false
+  }
+
+  if (closed) {
+    $header.classList.remove(HEADER_STICKY)
+  } else {
+    $header.classList.add(HEADER_STICKY)
+  }
+}
+outline = new Outline(Outline.DEFAULTS)</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-afterScroll">afterScroll</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Function</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">null</dd></dl><p>可选，当点击导航菜单、文章中的 anchor 图标（#）或者上下滚动按钮会触发滚动，afterScroll() 回调函数会在滚动结束后触发执行。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">target</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><p>afterScroll() 回调函数有一个参数 target，返回的是当前点击的 DOM 元素的名称：</p><ul><li>'anchor'：表示点击的是 anchor 图标，即文章中标题前的 “#” 图标，此时的 this 上下文指向 outline.anchors；</li><li>'chapter'：表示点击的是导航菜单的链接，此时的 this 上下文指向 outline.chapters；</li><li>'up'：表示点击的是工具栏的向上按钮，此时的 this 上下文指向 outline.toolbar；</li><li>'down'：表示点击的是工具栏的向下按钮，此时的 this 上下文指向 outline.toolbar；</li></ul><p>注意：因为配置 afterScroll 回调函数会因为 4 个不同的 DOM 触发，所以需要根据 target 返回的值和此时的 this 指向判断处理。</p><pre class="section__pre"><code class="section__code">const defaults = Outline.DEFAULTS
+let outline
+
+defaults.position = 'fixed'
+defaults.parentElement = '#aside'
+defaults.stickyHeight = 86
+defaults.homepage = './index.html'
+defaults.afterScroll = function(target) {
+  // 当然，如果你希望无论是点击什么都执行，就不需要判断了
+  // 直接些通用的滚动结束的逻辑即可
+  switch(target){
+    case 'anchor':
+      // 针对点击 # 的处理逻辑
+      break
+    case 'chapter':
+      // 针对点击导航菜单的处理逻辑
+      break
+    case 'up':
+      // 针对点击向上滚动按钮的处理逻辑
+      break
+    case 'down':
+      // 针对点击向下滚动按钮的处理逻辑
+      break
+  }
+}
+outline = new Outline(Outline.DEFAULTS)</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-git">git</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">''</dd></dl><p>可选，针对 API 文档类的文章页面，指定项目 git 仓库地址：</p><pre class="section__pre"><code class="section__code">const outline = new Outline(Outline.DEFAULTS)
+
+// 侧边栏的 Toolbar 会多出一个 git 图标的按钮
+outline.reload({
+  git: 'https://github.com/yaohaixiao/outline.js'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-articleElement">articleElement</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String|HTMLElement</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">'#article'</dd></dl><dl class="section__dl"><dt class="section__dt">String：</dt><dd class="section__dd">选择器字符串，默认值：html,body（即 window 窗口）;</dd></dl><dl class="section__dl"><dt class="section__dt">HTMLElement：</dt><dd class="section__dd">'DOM 元素;</dd></dl><p>可选，用来指定页面中显示文章正文的 DOM 节点或者选择器字符串。</p><pre class="section__pre"><code class="section__code">// Default Selector
+const outline = new Outline(Outline.DEFAULTS)
+
+// Customize Selector
+const outline = new Outline({
+  articleElement: $('#main')
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-anchorURL">anchorURL</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">''</dd></dl><p>可选，用来指定文章标题锚点链接图标的链接地址：</p><pre class="section__pre"><code class="section__code">// Default URL - 默认链接，点击图标，页面会滚动到当前标题位置
+new Outline()
+
+// Customize URL - 直接打开链接了
+new Outline({
+  anchorURL: 'http://www.yaohaixiao.com/'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-afterSticky">afterSticky</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Function</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">null</dd></dl><p>可选，在设置 position: fixed 时，当导航菜单样式为 fixed 获取恢复为普通定位的时候，会触发执行 afterSticky 回调函数。</p><p>说明：afterSticky() 回调函数的 this 上下文执行 outline.chapters 对象。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">closed</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Boolean</dd></dl><p>closed 参数值为 true 表示菜单处于隐藏状态，否则表示菜单处于显示状态</p><h5 class="section__h4">isSticky</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Boolean</dd></dl><p>isSticky 参数值为 true 表示（position:fixed）菜单处于模拟 sticky 定位（position:fixed）状态，否则表示菜单处于普通状态。</p><pre class="section__pre"><code class="section__code">const $header = document.querySelector('#header')
+const HEADER_STICKY = 'header_sticky'
+const defaults = Outline.DEFAULTS
+let outline
+
+defaults.position = 'fixed'
+defaults.parentElement = '#aside'
+defaults.stickyHeight = 86
+defaults.homepage = './index.html'
+defaults.afterSticky = function(closed, isStickying) {
+  const $nav = this.$el
+  const BORDER_RIGHT = 'utils-border-right'
+
+  if (closed) {
+    return false
+  }
+
+  if (isStickying) {
+    $nav.classList.add(BORDER_RIGHT)
+    $header.classList.add(HEADER_STICKY)
+  } else {
+    $nav.classList.remove(BORDER_RIGHT)
+    $header.classList.remove(HEADER_STICKY)
+  }
+}
+defaults.afterToggle = function(closed, isStickying) {
+  if (!isStickying) {
+    return false
+  }
+
+  if (closed) {
+    $header.classList.remove(HEADER_STICKY)
+  } else {
+    $header.classList.add(HEADER_STICKY)
+  }
+}
+outline = new Outline(Outline.DEFAULTS)</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-issues">issues</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">''</dd></dl><p>可选，针对 API 文档类的文章页面，指定项目 git 仓库 issues 页面地址：</p><pre class="section__pre"><code class="section__code">const outline = new Outline(Outline.DEFAULTS)
+
+// 侧边栏的 Toolbar 会多出一个 issues 图标的按钮
+outline.reload({
+  issues: 'https://github.com/yaohaixiao/outline.js/issues'
+})</code></pre></div></section></section><section class="section"><header class="section__header"><h2 class="section__title">Properties</h2></header><div class="section__content"><p>message.js 对外放 4 个重要的属性：$el、attrs、id 和 offset。另外还提供一个静态属性：DEFAULTS。</p></div><section class="section"><header class="section__header"><h3 class="section__h3">$el</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">HTMLElement</dd></dl><p>$el 属性是 message.js 创建的提示信息框最外层的 DOM 元素。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
+
+const message = new Message({
+  message: '$el 属性是 message.js 创建的提示信息框最外层的 DOM 元素'
+})
+
+console.log(message.$el)
+// $el 的完整 DOM 结构
+// &lt;div class="mjs-message mjs-message_info mjs-message_default mjs-message_visible" style="top: 30px;"&gt;
+//   &lt;i class="mjs-icon mjs-message__icon"&gt;
+//     &lt;svg aria-hidden="true" class="mjs-icon__svg" style="width:16px;height:16px;"&gt;
+//       &lt;use xlink:href="#mjs-icon-info"&gt;&lt;/use&gt;
+//     &lt;/svg&gt;
+//   &lt;/i&gt;
+//   &lt;p class="mjs-message__content"&gt;$el 属性是 message.js 创建的提示信息框最外层的 DOM 元素&lt;/p&gt;
+//   &lt;i class="mjs-icon mjs-message__close"&gt;
+//     &lt;svg aria-hidden="true" class="mjs-icon__svg" style="width:18px;height:18px;"&gt;
+//       &lt;use xlink:href="#mjs-icon-close"&gt;&lt;/use&gt;
+//     &lt;/svg&gt;
+//   &lt;/i&gt;
+// &lt;/div&gt;</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">attrs</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object</dd></dl><p>存储的是 Message 对象当前使用中的配置选项：</p><p>说明：建议使用 attr(prop) 方法来获取属性，避免直接调用属性。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
+
+// 设置默认配置项
+const message = new Message(Message.DEFAULTS)
+
+// 查看全部配置信息
+// 建议实用 message.attr() 方法获取完整的配置信息
+message.attrs</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">id</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><p>Message 对象实例的 id 字符串。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
+
+const message = new Message({
+  id: 'mjs-message-info'
+  message: '$el 属性是 message.js 创建的提示信息框最外层的 DOM 元素'
+})
+
+console.log(message.id) // => 'mjs-message-info'</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">offset</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Number</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">30</dd></dl><p>指定 Message 提示信息距离浏览器窗口顶部部的 top 值。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
+
+const message = new Message({
+  id: 'mjs-message-info'
+  // 默认值：30
+  offset: 50
+  message: '$el 属性是 message.js 创建的提示信息框最外层的 DOM 元素'
+})
+
+console.log(message.offset) // => 50</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">DEFAULTS</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object</dd></dl><p>静态属性，存储的是 Message 对象默认配置选项：</p><pre class="section__pre"><code class="section__code">Message.DEFAULTS = {
+  id: '',
+  type: 'info',
+  effect: 'default',
+  round: false,
+  offset: 30,
+  duration: 6,
+  delay: 2,
+  message: '',
+  customClass: '',
+  closable: true,
+  visible: true,
+  dangerouslyUseHTMLString: false,
+  beforeClose: null
+}</code></pre></div></section></section><section class="section"><header class="section__header"><h2 class="section__title">Methods</h2></header><div class="section__content"><p>message.js 的提供了 6 个公共方法和 4 个静态方法：</p></div><section class="section"><header class="section__header"><h3 class="section__h3" id="method-attr">attr([prop, value])</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>attr() 方法用来设置或者获取初始化时配置的 attrs 信息的。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">prop</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String|HTMLElement</dd></dl><p>（可选）options 中的属性名称或者要配置的 attrs 信息。</p><h5 class="section__h4">value</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>（可选）要设置的 prop 属性的值</p><ul><li>不传递任何参数：返回完整的 attrs 配置信息；</li><li>仅传递 prop：</li><ul><li>String: 返回 attrs 配型信息中与 prop 对应的值；</li><li>Object: 用来设置 attrs 配置信息；</li></ul><li>同时传递 prop 和 value 参数：设置 attrs 配置信息中的某个属性值；</li></ul><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>配置信息 attrs 的属性值或者 Outline 对象。</p><pre class="section__pre"><code class="section__code">const outline = new Outline({
+   article: '#article',
+   title: 'Outline v2.0.0'
+})
+
+outline.attr('title') // -> 'Outline v2.0.0'
+outline.attr('title', '目录') // -> 设置 title 配置信息的值为 '目录'
+outline.attr() // -> 返回完整配置参数 attrs 信息</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="method-removeButton">removeButton(name)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>removeButton() 方法移除工具栏按钮。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">name</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><p>（必须）按钮名称。</p><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Outline</dd></dl><p>Outline 对象，便于链式方法调用。</p><pre class="section__pre"><code class="section__code">const outline = new Outline(Outline.DEFAULTS)
+// 如果需要其它图标，可以到 https://github.com/yaohaixiao/icons.toolkit.vue 项目中选择需要的图标资源
+const clean = '&lt;svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 1024 1024"&gt;' +
+  '&lt;path d="M704 32V320h288a32 32 0 0 1 32 32v320a32 32 0 0 1-32 32H32a32 32 0 0 1-32-32v-320A32 32 0 0 1 32 320H320V32a32 32 0 0 1 32-32h320a32 32 0 0 1 32 32zM576 128H448v320H128v128h768V448H576V128z"&gt;&lt;/path&gt;' +
+  '&lt;path d="M896 576v416a32 32 0 0 1-32 32h-704a32 32 0 0 1-32-32V576h768z m-128 128H256v192h512v-192z"&gt;&lt;/path&gt;' +
+  '&lt;/svg&gt;'
+
+outline.addButton({
+  name: 'clean',
+  // 图标
+  icon: clean,
+  size: 20,
+  color: '#f00'
+  // link 指定按钮点击后页面的跳转地址
+  link: 'https://github.com/yaohaixiao',
+  // link 和 action 只能二选一
+  // action 指定按钮的处理方式
+  action: {
+    type: 'click',
+    // 指定回调函数的 this 上下文，不设置 this 指向 toolbar 组件
+    context: outline,
+    handler: function() {
+      // 回调函数的处理逻辑
+    }
+  }
+})
+
+setTimeout(() => {
+  outline.removeButton('clean')
+}, 5000)</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="method-destroy">destroy()</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>destroy() 方法用于移除所有绘制的 DOM 节点，并移除绑定的事件处理器，同时重置所有 attrs 配置信息和 data 信息。</p><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Outline</dd></dl><p>Outline 对象，便于链式方法调用。</p><pre class="section__pre"><code class="section__code">const outline = new Outline({
+   article: '#article',
+   title: 'Outline v2.0.0'
+})
+
+outline.getChapters()
+// -> [{
+  code: "1",
+  id: 0,
+  index: 1,
+  level: 1,
+  pid: -1
+  rel: "heading-0"
+  text: "创作灵感"
+}]
+
+outline.destroy()
+outline.getChapters()
+// 调用 destroy() 方法后，所有数据都清空了
+// -> []</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="method-addButton">addButton(button)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>addButton() 方法添加自定义的工具栏按钮。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">button</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object|Array</dd></dl><p>（必须）单个按钮的配置信息或者多个按钮的配置信息。</p><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Outline</dd></dl><p>Outline 对象，便于链式方法调用。</p><pre class="section__pre"><code class="section__code">const outline = new Outline(Outline.DEFAULTS)
+// 如果需要其它图标，可以到 https://github.com/yaohaixiao/icons.toolkit.vue 项目中选择需要的图标资源
+const clean = '&lt;svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 1024 1024"&gt;' +
+  '&lt;path d="M704 32V320h288a32 32 0 0 1 32 32v320a32 32 0 0 1-32 32H32a32 32 0 0 1-32-32v-320A32 32 0 0 1 32 320H320V32a32 32 0 0 1 32-32h320a32 32 0 0 1 32 32zM576 128H448v320H128v128h768V448H576V128z"&gt;&lt;/path&gt;' +
+  '&lt;path d="M896 576v416a32 32 0 0 1-32 32h-704a32 32 0 0 1-32-32V576h768z m-128 128H256v192h512v-192z"&gt;&lt;/path&gt;' +
+  '&lt;/svg&gt;'
+
+outline.addButton({
+  name: 'clean',
+  // 图标
+  icon: clean,
+  size: 20,
+  color: '#f00'
+  // link 指定按钮点击后页面的跳转地址
+  link: 'https://github.com/yaohaixiao',
+  // link 和 action 只能二选一
+  // action 指定按钮的处理方式
+  action: {
+    type: 'click',
+    // 指定回调函数的 this 上下文，不设置 this 指向 toolbar 组件
+    context: outline,
+    handler: function() {
+      // 回调函数的处理逻辑
+    }
+  }
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="method-getChapters">getChapters([isTreeStructured])</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>getChapters() 方法来获取 outline.js 分析的文章段落层次数据。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">isTreeStructured</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Boolean</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">false</dd></dl><p>（可选）是否为树结构的数据。</p><ul><li>false: (默认值）输出打平的一维数组格式数据；</li><li>true: 输出树结构格式的数据；</li></ul><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object</dd></dl><p>outline.js 分析的文章段落层次数据。</p><pre class="section__pre"><code class="section__code">const outline = new Outline({
+   article: '#article',
+   title: 'Outline v2.0.0'
+})
+
+outline.getChapters()
+// 一维数组格式数据
+// -> [{
+  {
+    id: 2,
+    pid: -1,
+    level: 1,
+    rel: "heading-2",
+    text: "安装说明",
+    index: 3,
+    code: "3",
+  },
+  {
+    id: 3,
+    pid: 2,
+    level: 2,
+    rel: "heading-3",
+    text: "npm install",
+    index: 1,
+    code: "3.1",
+    children: []
+  },
+  {
+    id: 4,
+    pid: 2,
+    level: 2,
+    rel: "heading-4",
+    text: "CDN 调用",
+    index: 2,
+    code: "3.2",
+    children: []
+  },
+  {
+    id: 5,
+    pid: 2,
+    level: 2,
+    rel: "heading-5",
+    text: "调用本地JS文件",
+    index: 3,
+    code: "3.3",
+    children: []
+  }
+}]
+
+outline.getChapters(true)
+// 有 children 属性的树结构对象数组
+// -> [{
+  code: "3",
+  id: 2,
+  index:3,
+  level:1,
+  pid:-1,
+  rel: "heading-2"
+  text:"安装说明",
+  children: [
+    {
+      id: 3,
+      pid: 2,
+      level: 2,
+      rel: "heading-3",
+      text: "npm install",
+      index: 1,
+      code: "3.1",
+      children: []
+    },
+    {
+      id: 4,
+      pid: 2,
+      level: 2,
+      rel: "heading-4",
+      text: "CDN 调用",
+      index: 2,
+      code: "3.2",
+      children: []
+    },
+    {
+      id: 5,
+      pid: 2,
+      level: 2,
+      rel: "heading-5",
+      text: "调用本地JS文件",
+      index: 3,
+      code: "3.3",
+      children: []
+    }
+  ]
+}]
+
+
+outline.destroy()
+outline.getChapters()
+// 调用 destroy() 方法后，所有数据都清空了
+// -> []</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="method-reload">reload(options)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>reload (options) 方法是（根据新的配置信息）重启程序方法：</p><ol><li>先移除所有绘制的 DOM 元素和绑定的事件处理器；</li><li>重新初始化程序；</li></ol><h4 class="section__h4">Parameters</h4><h5 class="section__h4">options</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object</dd></dl><p>（可选）初始化的配置参数。</p><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Outline</dd></dl><p>Outline 对象，便于链式方法调用。</p><pre class="section__pre"><code class="section__code">const outline = new Outline({
+  showCode: true
+})
+
+// 重启后，将不再显示段落层次编号
+outline.reload({
+  showCode: false
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="method-attr">attr([prop, value])</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>attr() 方法用来设置或者获取初始化时配置的 attrs 信息的。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">prop</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String|HTMLElement</dd></dl><p>（可选）options 中的属性名称或者要配置的 attrs 信息。</p><h5 class="section__h4">value</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>（可选）要设置的 prop 属性的值</p><ul><li>不传递任何参数：返回完整的 attrs 配置信息；</li><li>仅传递 prop：</li><ul><li>String: 返回 attrs 配型信息中与 prop 对应的值；</li><li>Object: 用来设置 attrs 配置信息；</li></ul><li>同时传递 prop 和 value 参数：设置 attrs 配置信息中的某个属性值；</li></ul><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>配置信息 attrs 的属性值或者 Outline 对象。</p><pre class="section__pre"><code class="section__code">const outline = new Outline({
+   article: '#article',
+   title: 'Outline v2.0.0'
+})
+
+outline.attr('title') // -> 'Outline v2.0.0'
+outline.attr('title', '目录') // -> 设置 title 配置信息的值为 '目录'
+outline.attr() // -> 返回完整配置参数 attrs 信息</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="method-attr">attr([prop, value])</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>attr() 方法用来设置或者获取初始化时配置的 attrs 信息的。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">prop</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String|HTMLElement</dd></dl><p>（可选）options 中的属性名称或者要配置的 attrs 信息。</p><h5 class="section__h4">value</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>（可选）要设置的 prop 属性的值</p><ul><li>不传递任何参数：返回完整的 attrs 配置信息；</li><li>仅传递 prop：</li><ul><li>String: 返回 attrs 配型信息中与 prop 对应的值；</li><li>Object: 用来设置 attrs 配置信息；</li></ul><li>同时传递 prop 和 value 参数：设置 attrs 配置信息中的某个属性值；</li></ul><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>配置信息 attrs 的属性值或者 Outline 对象。</p><pre class="section__pre"><code class="section__code">const outline = new Outline({
+   article: '#article',
+   title: 'Outline v2.0.0'
+})
+
+outline.attr('title') // -> 'Outline v2.0.0'
+outline.attr('title', '目录') // -> 设置 title 配置信息的值为 '目录'
+outline.attr() // -> 返回完整配置参数 attrs 信息</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="method-attr">attr([prop, value])</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>attr() 方法用来设置或者获取初始化时配置的 attrs 信息的。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">prop</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String|HTMLElement</dd></dl><p>（可选）options 中的属性名称或者要配置的 attrs 信息。</p><h5 class="section__h4">value</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>（可选）要设置的 prop 属性的值</p><ul><li>不传递任何参数：返回完整的 attrs 配置信息；</li><li>仅传递 prop：</li><ul><li>String: 返回 attrs 配型信息中与 prop 对应的值；</li><li>Object: 用来设置 attrs 配置信息；</li></ul><li>同时传递 prop 和 value 参数：设置 attrs 配置信息中的某个属性值；</li></ul><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>配置信息 attrs 的属性值或者 Outline 对象。</p><pre class="section__pre"><code class="section__code">const outline = new Outline({
+   article: '#article',
+   title: 'Outline v2.0.0'
+})
+
+outline.attr('title') // -> 'Outline v2.0.0'
+outline.attr('title', '目录') // -> 设置 title 配置信息的值为 '目录'
+outline.attr() // -> 返回完整配置参数 attrs 信息</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="method-attr">attr([prop, value])</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>attr() 方法用来设置或者获取初始化时配置的 attrs 信息的。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">prop</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String|HTMLElement</dd></dl><p>（可选）options 中的属性名称或者要配置的 attrs 信息。</p><h5 class="section__h4">value</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>（可选）要设置的 prop 属性的值</p><ul><li>不传递任何参数：返回完整的 attrs 配置信息；</li><li>仅传递 prop：</li><ul><li>String: 返回 attrs 配型信息中与 prop 对应的值；</li><li>Object: 用来设置 attrs 配置信息；</li></ul><li>同时传递 prop 和 value 参数：设置 attrs 配置信息中的某个属性值；</li></ul><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>配置信息 attrs 的属性值或者 Outline 对象。</p><pre class="section__pre"><code class="section__code">const outline = new Outline({
+   article: '#article',
+   title: 'Outline v2.0.0'
+})
+
+outline.attr('title') // -> 'Outline v2.0.0'
+outline.attr('title', '目录') // -> 设置 title 配置信息的值为 '目录'
+outline.attr() // -> 返回完整配置参数 attrs 信息</code></pre></div></section></section></article><footer class="main__footer" id="footer"><p>Copyright &copy; 2023 <a href="https://github.com/yaohaixiao">Robert Yao</a>, all right reserved.</p><p>Code licensed under&nbsp;<a href="http://opensource.org/licenses/mit-license.html">MIT License</a></p><p>Documentation licensed under<a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a></p><p><a href="https://github.com/yaohaixiao/message.js">View on GitHub</a> ·
+<a href="https://github.com/yaohaixiao/message.js/issues">Issues</a></p></footer></main></div><script src="js/docs.min.js"></script></body></html>

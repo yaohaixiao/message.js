@@ -1,33 +1,34 @@
 import Vue from 'vue'
 import MjsMessage from './src/Message'
 
-import isFunction from '../utils/types/isFunction'
+import guid from '../utils/lang/guid'
 import isString from '../utils/types/isString'
 import isVNode from '../utils/types/isVNode'
+import close from '../utils/close'
+import clear from '../utils/clear'
+import TYPES from '../utils/enum'
 
-const TYPES = ['success', 'warning', 'info', 'error']
 const MessageConstructor = Vue.extend(MjsMessage)
 
 let instances = []
-let seed = 1
 let instance
 
 const Message = function (options) {
   let beforeClose = options.beforeClose
-  let id = 'message_' + seed++
+  let id = guid('mjs-message-')
   let offset = options.offset || 30
 
   options = options || {}
-  options.id = id
 
   if (isString(options)) {
     options = {
       message: options
     }
   }
+  options.id = id
 
   options.beforeClose = function () {
-    Message.close(id, beforeClose)
+    Message.close(id, beforeClose, instances)
   }
 
   instance = new MessageConstructor({
@@ -68,44 +69,9 @@ TYPES.forEach((type) => {
 })
 
 // 关闭指定 id 消息的静态方法
-Message.close = (id, beforeClose) => {
-  let len = instances.length
-  let index = -1
-  let removedHeight
-
-  instances.forEach((instance, i) => {
-    // 在 instances 中通过 id 找到要关闭的消息
-    if (id === instance.id) {
-      removedHeight = instance.$el.offsetHeight
-      index = i
-
-      // 关闭消息
-      if (isFunction(beforeClose)) {
-        beforeClose(instance)
-      }
-
-      instances.splice(i, 1)
-    }
-  })
-
-  if (len <= 1 || index === -1 || index > instances.length - 1) {
-    return false
-  }
-
-  // 界面中的消息逐个向上收起
-  for (let i = index; i < len - 1; i++) {
-    let dom = instances[i].$el
-
-    dom.style['top'] =
-      parseInt(dom.style['top'], 10) - removedHeight - 16 + 'px'
-  }
-}
+Message.close = close
 
 // 关闭所有消息的静态方法
-Message.closeAll = () => {
-  for (let i = instances.length - 1; i >= 0; i--) {
-    instances[i].close()
-  }
-}
+Message.clear = clear
 
 export default Message

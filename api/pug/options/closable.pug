@@ -1,0 +1,22 @@
+section.section
+  header.section__header
+    h3.section__h3 closable
+  div.section__content
+    h4.section__h4 Description
+    dl.section__dl
+      dt.section__dt Type：
+      dd.section__dd Boolean
+    dl.section__dl
+      dt.section__dt Default：
+      dd.section__dd true
+    p 可选，指定是否有关闭按钮；
+    pre.section__pre
+      code.section__.
+        // 导入 Message 模块
+        import Message from '@yaohaixiao/message.js/message'
+
+        const message = new Message({
+          // 提示信息界面没有关闭按钮
+          closable: false,
+          message: '可选，closable 指定是否有关闭按钮'
+        })

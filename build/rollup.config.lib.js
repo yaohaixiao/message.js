@@ -15,7 +15,7 @@ export default [
   {
     input: './message.js',
     output: {
-      name: 'icons',
+      name: 'Message',
       file: './message.min.js',
       format: 'umd',
       sourcemap: true

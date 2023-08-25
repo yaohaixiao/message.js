@@ -1,0 +1,25 @@
+section.section
+  header.section__header
+    h3.section__h3 offset
+  div.section__content
+    h4.section__h4 Description
+    dl.section__dl
+      dt.section__dt Type：
+      dd.section__dd Number
+    dl.section__dl
+      dt.section__dt Default：
+      dd.section__dd 30
+    p 指定 Message 提示信息距离浏览器窗口顶部部的 top 值。
+    pre.section__pre
+      code.section__code.
+        // 导入 Message 模块
+        import Message from '@yaohaixiao/message.js/message'
+
+        const message = new Message({
+          id: 'mjs-message-info'
+          // 默认值：30
+          offset: 50
+          message: '$el 属性是 message.js 创建的提示信息框最外层的 DOM 元素'
+        })
+
+        console.log(message.offset) // => 50

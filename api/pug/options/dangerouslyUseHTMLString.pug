@@ -1,0 +1,28 @@
+section.section
+  header.section__header
+    h3.section__h3 dangerouslyUseHTMLString
+  div.section__content
+    h4.section__h4 Description
+    dl.section__dl
+      dt.section__dt Type：
+      dd.section__dd Boolean
+    dl.section__dl
+      dt.section__dt Default：
+      dd.section__dd false
+    p 可选，用来显示的提示信息文本是否允许有 HTML 字符串。
+    p 默认提示信息应该为普通的文本，在需要显示 HTML 字符的时候配置 dangerouslyUseHTMLString，否则 HTML 字符串将通过 encodeHTML() 方法转义 HTML 字符。
+    pre.section__pre
+      code.section__code.
+        // 导入 Message 模块
+        import Message from '@yaohaixiao/message.js/message'
+
+        // 默认将转义 message 中的 HTML 的 < 转义为 &amp;lt;，> 转义为 &amp;gt;
+        const message = new Message({
+          message: '可选，&lt;a href="#beforeClose"&gt;beforeClose&lt;/a&gt; 用来指定提示信息关闭之前执行的回调函数。'
+        })
+
+        // message 中的 HTML 链接将可以点击
+        const message = new Message({
+          dangerouslyUseHTMLString: true,
+          message: '可选，&lt;a href="#beforeClose"&gt;beforeClose&lt;/a&gt; 用来指定提示信息关闭之前执行的回调函数。'
+        })

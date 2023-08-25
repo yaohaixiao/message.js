@@ -1,0 +1,22 @@
+section.section
+  header.section__header
+    h3.section__h3 customClass
+  div.section__content
+    h4.section__h4 Description
+    dl.section__dl
+      dt.section__dt Type：
+      dd.section__dd String
+    dl.section__dl
+      dt.section__dt Default：
+      dd.section__dd ''
+    p 可选，如果 message.js 中自带的 UI 样式无法满足开发中的应用场景的要求可以添加 customClass 以扩展修改界面样式。
+    pre.section__pre
+      code.section__code.
+        // 导入 Message 模块
+        import Message from '@yaohaixiao/message.js/message'
+
+        const message = new Message({
+          // 设置深色样式
+          customClass: 'theme-dark',
+          message: '可选，如果 message.js 中自带的 UI 样式无法满足开发中的应用场景的要求可以添加 customClass 以扩展修改界面样式。'
+        })

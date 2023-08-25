@@ -1,0 +1,33 @@
+section.section
+  header.section__header
+    h3.section__h3 $el
+  div.section__content
+    h4.section__h4 Description
+    dl.section__dl
+      dt.section__dt Type：
+      dd.section__dd HTMLElement
+    p $el 属性是 message.js 创建的提示信息框最外层的 DOM 元素。
+    pre.section__pre
+      code.section__code.
+        // 导入 Message 模块
+        import Message from '@yaohaixiao/message.js/message'
+
+        const message = new Message({
+          message: '$el 属性是 message.js 创建的提示信息框最外层的 DOM 元素'
+        })
+
+        console.log(message.$el)
+        // $el 的完整 DOM 结构
+        // &lt;div class="mjs-message mjs-message_info mjs-message_default mjs-message_visible" style="top: 30px;"&gt;
+        //   &lt;i class="mjs-icon mjs-message__icon"&gt;
+        //     &lt;svg aria-hidden="true" class="mjs-icon__svg" style="width:16px;height:16px;"&gt;
+        //       &lt;use xlink:href="#mjs-icon-info"&gt;&lt;/use&gt;
+        //     &lt;/svg&gt;
+        //   &lt;/i&gt;
+        //   &lt;p class="mjs-message__content"&gt;$el 属性是 message.js 创建的提示信息框最外层的 DOM 元素&lt;/p&gt;
+        //   &lt;i class="mjs-icon mjs-message__close"&gt;
+        //     &lt;svg aria-hidden="true" class="mjs-icon__svg" style="width:18px;height:18px;"&gt;
+        //       &lt;use xlink:href="#mjs-icon-close"&gt;&lt;/use&gt;
+        //     &lt;/svg&gt;
+        //   &lt;/i&gt;
+        // &lt;/div&gt;

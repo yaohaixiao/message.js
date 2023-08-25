@@ -1,0 +1,25 @@
+section.section
+  header.section__header
+    h3.section__h3 beforeClose
+  div.section__content
+    h4.section__h4 Description
+    dl.section__dl
+      dt.section__dt Type：
+      dd.section__dd Function
+    dl.section__dl
+      dt.section__dt Default：
+      dd.section__dd null
+    p 可选，用来指定提示信息关闭之前执行的回调函数。
+    pre.section__pre
+      code.section__code.
+        // 导入 Message 模块
+        import Message from '@yaohaixiao/message.js/message'
+
+        const message = new Message({
+          beforeClose: () => {
+            Message.warning({
+              message: 'message.js 提示窗口即将关闭'
+            })
+          },
+          message: '可选，beforeClose 用来指定提示信息关闭之前执行的回调函数。'
+        })

@@ -1,0 +1,27 @@
+section.section
+  header.section__header
+    h3.section__h3 DEFAULTS
+  div.section__content
+    h4.section__h4 Description
+    dl.section__dl
+      dt.section__dt Type：
+      dd.section__dd Object
+    p 静态属性，存储的是 Message 对象默认配置选项：
+    pre.section__pre
+      code.section__code.
+        Message.DEFAULTS = {
+          id: '',
+          type: 'info',
+          effect: 'default',
+          round: false,
+          offset: 30,
+          duration: 6,
+          delay: 2,
+          message: '',
+          customClass: '',
+          closable: true,
+          visible: true,
+          dangerouslyUseHTMLString: false,
+          beforeClose: null
+        }
+

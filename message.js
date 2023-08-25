@@ -6,27 +6,34 @@ import extend from './utils/lang/extend'
 import later from './utils/lang/later'
 import stripScripts from './utils/lang/stripScripts'
 import encodeHTML from './utils/lang/encodeHTML'
+import cloneDeep from './utils/lang/cloneDeep'
+import guid from './utils/lang/guid'
 import createElement from './utils/dom/createElement'
 import addClass from './utils/dom/addClass'
+import removeClass from './utils/dom/removeClass'
 import icon from './utils/icons/icon'
 import paint from './utils/icons/paint'
 import on from './utils/event/on'
 import off from './utils/event/off'
+import close from './utils/close'
+import clear from './utils/clear'
+import TYPES from './utils/enum'
 
-const TYPES = ['success', 'warning', 'info', 'error']
-
-let instances = []
-let seed = 1
+const instances = []
 let instance
 
 paint()
 
 class Message {
   constructor(options) {
-    this.attrs = {}
+    this.attrs = cloneDeep(Message.DEFAULTS)
+
+    this.id = ''
     this.closed = true
-    this.$el = null
+    this.visible = false
+    this.offset = -50
     this.timer = null
+    this.$el = null
 
     if (options) {
       this.initialize(options)
@@ -35,11 +42,25 @@ class Message {
 
   initialize(options) {
     this.attr(options)
+    this.id = this.attr('id')
     this.closed = !this.attr('visible')
+    this.offset = this.attr('offset') || -50
+
     this.render().addListeners()
+
+    if (this.attr('visible')) {
+      this.open()
+    }
+
     return this
   }
 
+  /**
+   *
+   * @param {String|Object} [prop]
+   * @param {*} [value]
+   * @return {*|{}|Message}
+   */
   attr(prop, value) {
     const attrs = this.attrs
 
@@ -75,14 +96,11 @@ class Message {
     const message = this.attr('message')
     const effect = this.attr('effect')
     const round = this.attr('round')
-    const offset = this.attr('offset')
     const closable = this.attr('closable')
     const visible = this.attr('visible')
     const dangerouslyUseHTMLString = this.attr('dangerouslyUseHTMLString')
     const customClass = this.attr('customClass')
     const iconName = effect === 'light' ? `circle-${type}` : type
-    const top = visible ? offset : -50
-    const cssRules = `top:${top}px;`
     const className = [
       'mjs-message',
       `mjs-message_${type}`,
@@ -118,6 +136,7 @@ class Message {
 
     if (effect !== 'plain') {
       $type = icon(iconName, {
+        iconSet: 'mjs',
         size: iconSize
       })
       addClass($type, 'mjs-message__icon')
@@ -140,8 +159,11 @@ class Message {
     children.push($message)
 
     if (closable) {
-      $close = icon('close', { size: 18 })
-      addClass($type, 'mjs-message__close')
+      $close = icon('close', {
+        iconSet: 'mjs',
+        size: 18
+      })
+      addClass($close, 'mjs-message__close')
       children.push($close)
     }
 
@@ -152,7 +174,7 @@ class Message {
       },
       children
     )
-    $el.style.cssText = cssRules
+    $el.style.cssText = `top:-50px;`
     this.$el = $el
 
     document.body.appendChild(this.$el)
@@ -174,13 +196,20 @@ class Message {
   }
 
   open() {
+    const $el = this.$el
+    const offset = this.attr('offset')
     const duration = this.attr('duration')
+    const top = offset && offset >= this.offset ? offset : this.offset
+    const cssRules = `top:${top}px;`
 
     this.clearTimer()
 
     later(() => {
       this.visible = true
       this.closed = false
+
+      addClass($el, 'mjs-message_visible')
+      $el.style.cssText = cssRules
 
       if (duration > 0) {
         this.startTimer(duration)
@@ -189,7 +218,9 @@ class Message {
   }
 
   close() {
+    const $el = this.$el
     const beforeClose = this.attr('beforeClose')
+    const cssRules = `top:-50px;`
 
     this.closed = true
 
@@ -200,18 +231,27 @@ class Message {
     this.visible = false
     this.closed = true
 
-    later(() => {
-      this.remove()
-    }, 500)
-  }
+    $el.style.cssText = cssRules
+    removeClass($el, 'mjs-message_visible')
 
-  remove() {
-    this.destroy()
+    later(() => {
+      this.destroy()
+    }, 500)
+
+    return this
   }
 
   destroy() {
     this.removeListeners()
     document.body.removeChild(this.$el)
+
+    this.attr(Message.DEFAULTS)
+    this.id = ''
+    this.closed = true
+    this.visible = false
+    this.offset = -50
+    this.timer = null
+    this.$el = null
 
     return this
   }
@@ -223,6 +263,7 @@ class Message {
 
   onMouseEnter() {
     this.clearTimer()
+    return this
   }
 
   onMouseLeave() {
@@ -234,11 +275,14 @@ class Message {
     }
 
     this.startTimer(delay)
+
+    return this
   }
 
   onClose() {
     this.clearTimer()
     this.close()
+    return this
   }
 
   addListeners() {
@@ -277,41 +321,41 @@ class Message {
 }
 
 Message.DEFAULTS = {
-  id: 0,
+  id: '',
   type: 'info',
   effect: 'default',
+  round: false,
   offset: 30,
   duration: 6,
   delay: 2,
   message: '',
   customClass: '',
-  round: false,
   closable: true,
-  visible: false,
+  visible: true,
   dangerouslyUseHTMLString: false,
   beforeClose: null
 }
 
 TYPES.forEach((type) => {
   Message[type] = (options) => {
-    const id = `mjs-message-${seed++}`
+    const id = guid(`mjs-message-`)
     const beforeClose = options.beforeClose
     let offset = options.offset || 30
 
     options = options || {}
-    options.id = id
 
     if (isString(options)) {
       options = {
         message: options
       }
     }
-
-    options.beforeClose = () => {
-      Message.close(id, beforeClose)
-    }
-
+    options.id = id
     options.type = type
+    options.offset = offset
+    options.visible = false
+    options.beforeClose = () => {
+      Message.close(id, beforeClose, instances)
+    }
 
     instance = new Message(options)
 
@@ -327,44 +371,9 @@ TYPES.forEach((type) => {
 })
 
 // 关闭指定 id 消息的静态方法
-Message.close = (id, beforeClose) => {
-  let len = instances.length
-  let index = -1
-  let removedHeight
-
-  instances.forEach((instance, i) => {
-    // 在 instances 中通过 id 找到要关闭的消息
-    if (id === instance.id) {
-      removedHeight = instance.$el.offsetHeight
-      index = i
-
-      // 关闭消息
-      if (isFunction(beforeClose)) {
-        beforeClose(instance)
-      }
-
-      instances.splice(i, 1)
-    }
-  })
-
-  if (len <= 1 || index === -1 || index > instances.length - 1) {
-    return false
-  }
-
-  // 界面中的消息逐个向上收起
-  for (let i = index; i < len - 1; i++) {
-    let dom = instances[i].$el
-
-    dom.style['top'] =
-      parseInt(dom.style['top'], 10) - removedHeight - 16 + 'px'
-  }
-}
+Message.close = close
 
 // 关闭所有消息的静态方法
-Message.closeAll = () => {
-  for (let i = instances.length - 1; i >= 0; i--) {
-    instances[i].close()
-  }
-}
+Message.clear = clear
 
 export default Message
