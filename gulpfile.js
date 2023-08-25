@@ -62,7 +62,7 @@ const test = gulp.series(lint, check)
 /* ==================== 编译代码的 gulp 任务 ==================== */
 const buildSourceStyles = () => {
   return gulp
-    .src(['./components/src/message.less'], {
+    .src(['./theme/message.less'], {
       allowEmpty: true
     })
     .pipe(sourcemaps.init())
@@ -129,15 +129,16 @@ const minifyApiStyle = () => {
     .pipe(gulp.dest('./docs'))
 }
 
+const buildApiStyles = gulp.series(buildApiStyle, minifyApiStyle)
+
 const buildApiScript = () => {
-  return run('npm run build:docs:script').exec()
+  return run('npm run build:api:script').exec()
 }
 
 const buildDocs = gulp.series(
   cleanDocs,
   buildApi,
-  buildApiStyle,
-  minifyApiStyle,
+  buildApiStyles,
   buildApiScript
 )
 

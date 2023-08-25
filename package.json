@@ -3,18 +3,27 @@
   "version": "0.1.0",
   "description": "message.js - 一个小巧实用的 JavaScript 提示信息工具库。",
   "main": "message.min.js",
+  "files": [
+    "theme",
+    "utils",
+    "message.css",
+    "message.min.css",
+    "message.js",
+    "message.min.js"
+  ],
   "scripts": {
     "start": "gulp start",
     "build:lib:script": "rollup -c build/rollup.config.lib.js --bundleConfigAsCjs",
     "build:lib:style": "gulp buildLibStyles",
     "build:lib": "npm run build:lib:script && npm run build:lib:style",
-    "build:docs:script": "rollup -c build/rollup.config.api.js --bundleConfigAsCjs",
-    "build:docs": "gulp build",
-    "build": "npm run lint:fix && npm run prettier:write && npm run build:lib && npm run build:docs",
+    "build:api:script": "rollup -c build/rollup.config.api.js --bundleConfigAsCjs",
+    "build:api:style": "gulp buildApiStyles",
+    "build:api": "gulp build",
+    "build": "npm run lint:fix && npm run prettier:write && npm run build:lib && npm run build:api",
     "lint": "eslint",
     "lint:fix": "npm run lint --cache --fix",
-    "prettier:check": "npx prettier --check \"./**/*.(js|less|vue)\"",
-    "prettier:write": "npx prettier --write \"./**/*.(js|less|vue)\"",
+    "prettier:check": "npx prettier --check \"./**/*.(js|less)\"",
+    "prettier:write": "npx prettier --write \"./**/*.(js|less)\"",
     "test:unit": "jest --config jest.config.js",
     "test": "npm run lint:fix && npm run prettier:write && npm run test:unit",
     "prepare": "husky install",
@@ -79,7 +88,7 @@
     "commit-msg": "commitlint"
   },
   "lint-staged": {
-    "src/**/*.(js|less|vue)": [
+    "src/**/*.(js|less)": [
       "npm run lint:fix",
       "npm run prettier:write"
     ]

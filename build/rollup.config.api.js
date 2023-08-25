@@ -20,5 +20,15 @@ export default [
       sourcemap: true
     },
     plugins: PLUGIN_CONFIG
+  },
+  {
+    input: './message.js',
+    output: {
+      name: 'Message',
+      file: './docs/js/message.min.js',
+      format: 'umd',
+      sourcemap: true
+    },
+    plugins: PLUGIN_CONFIG
   }
 ]
