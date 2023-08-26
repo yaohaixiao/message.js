@@ -2,7 +2,7 @@
 [![npm version](https://img.shields.io/npm/v/@yaohaixiao/message.js)](https://www.npmjs.com/package/@yaohaixiao/message.js)
 ![Gzip size](http://img.badgesize.io/https://cdn.jsdelivr.net/gh/yaohaixiao/message.js/message.min.js?compression=gzip&label=gzip%20size)
 [![prettier code style](https://img.shields.io/badge/code_style-prettier-07b759.svg)](https://prettier.io)
-[![Coverage](https://codecov.io/gh/yaohaixiao/message.js/branch/main/graph/badge.svg)](https://codecov.io/gh/yaohaixiao/icons.js)
+[![Coverage](https://codecov.io/gh/yaohaixiao/message.js/branch/main/graph/badge.svg)](https://codecov.io/gh/yaohaixiao/message.js)
 [![npm downloads](https://img.shields.io/npm/dt/@yaohaixiao/message.js)](https://npmcharts.com/compare/@yaohaixiao/message.js?minimal=true)
 [![MIT License](https://img.shields.io/github/license/yaohaixiao/message.js.svg)](https://github.com/yaohaixiao/message.js/blob/main/LICENSE)
 
