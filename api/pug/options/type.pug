@@ -1,63 +1,52 @@
 section.section
   header.section__header
-    h3#option-afterSticky.section__h3 afterSticky
+    h3.section__h3 type
   div.section__content
     h4.section__h4 Description
     dl.section__dl
       dt.section__dt Type：
-      dd.section__dd Function
+      dd.section__dd String
     dl.section__dl
       dt.section__dt Default：
-      dd.section__dd null
-    p 可选，在设置 position: fixed 时，当导航菜单样式为 fixed 获取恢复为普通定位的时候，会触发执行 afterSticky 回调函数。
-    p 说明：afterSticky() 回调函数的 this 上下文执行 outline.chapters 对象。
-    h4.section__h4 Parameters
-    h5.section__h4 closed
-    dl.section__dl
-      dt.section__dt Type：
-      dd.section__dd Boolean
-    p closed 参数值为 true 表示菜单处于隐藏状态，否则表示菜单处于显示状态
-    h5.section__h4 isSticky
-    dl.section__dl
-      dt.section__dt Type：
-      dd.section__dd Boolean
-    p isSticky 参数值为 true 表示（position:fixed）菜单处于模拟 sticky 定位（position:fixed）状态，否则表示菜单处于普通状态。
+      dd.section__dd 'info'
+    p 可选，指定提示信息的类型，message.js 有 4 中类型提示：
+    ul
+      li info：普通提示信息；
+      li success：成功提示信息；
+      li warning：警告提示信息；
+      li error：错误提示信息；
+    p 另外，message.js 还提供了 Message.info()、Message.success()、Message.warning() 和 Message.error() 4 个静态方法，以对应的类型显示提示信息。
     pre.section__pre
       code.section__code.
-        const $header = document.querySelector('#header')
-        const HEADER_STICKY = 'header_sticky'
-        const defaults = Outline.DEFAULTS
-        let outline
+        // 导入 Message 模块
+        import Message from '@yaohaixiao/message.js/message'
 
-        defaults.position = 'fixed'
-        defaults.parentElement = '#aside'
-        defaults.stickyHeight = 86
-        defaults.homepage = './index.html'
-        defaults.afterSticky = function(closed, isStickying) {
-          const $nav = this.$el
-          const BORDER_RIGHT = 'utils-border-right'
+        // default UI 效果，普通提示信息
+        const message = new Message({
+          round: true,
+          message: '可选，指定提示信息的 UI 效果类型。'
+        })
 
-          if (closed) {
-            return false
-          }
+        // light UI 效果，成功提示信息
+        const message = new Message({
+          effect: 'light',
+          round: true,
+          type: 'success',
+          message: '可选，指定提示信息的 UI 效果类型。'
+        })
 
-          if (isStickying) {
-            $nav.classList.add(BORDER_RIGHT)
-            $header.classList.add(HEADER_STICKY)
-          } else {
-            $nav.classList.remove(BORDER_RIGHT)
-            $header.classList.remove(HEADER_STICKY)
-          }
-        }
-        defaults.afterToggle = function(closed, isStickying) {
-          if (!isStickying) {
-            return false
-          }
+        // light UI 效果，错误提示信息
+        const message = new Message({
+          effect: 'light',
+          round: true,
+          type: 'error',
+          message: '可选，指定提示信息的 UI 效果类型。'
+        })
 
-          if (closed) {
-            $header.classList.remove(HEADER_STICKY)
-          } else {
-            $header.classList.add(HEADER_STICKY)
-          }
-        }
-        outline = new Outline(Outline.DEFAULTS)
+        // plain UI 效果，警告提示信息
+        const message = new Message({
+          effect: 'plain',
+          round: true,
+          type: 'warning',
+          message: '可选，指定提示信息的 UI 效果类型。'
+        })

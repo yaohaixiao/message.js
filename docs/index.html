@@ -41,39 +41,46 @@ const message = new Message({
   // 鼠标离开提示信息区域 4 秒后，将自动关闭
   delay: 4,
   message: '可选，指定鼠标离开提示信息区域后，提示信息延迟关闭的时间（单位：秒）。'
-})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">duration</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Number</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">6</dd></dl><p>可选，执行提示信息展示的时间（单位：秒）。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">duration</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Number</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">6</dd></dl><p>可选，执行提示信息展示的时间（单位：秒），设置 duration: 0，则不会自动关闭。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
 import Message from '@yaohaixiao/message.js/message'
 
 const message = new Message({
   // 提示信息区将在 14 秒后自动关闭
   duration: 14,
   message: '可选，执行提示信息展示的时间（单位：秒）。'
-})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">effect</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">'default'</dd></dl><p>可选，指定提示信息的 UI 类型。</p><pre class="section__pre"><code class="section__code"></code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-afterScroll">afterScroll</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Function</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">null</dd></dl><p>可选，当点击导航菜单、文章中的 anchor 图标（#）或者上下滚动按钮会触发滚动，afterScroll() 回调函数会在滚动结束后触发执行。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">target</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><p>afterScroll() 回调函数有一个参数 target，返回的是当前点击的 DOM 元素的名称：</p><ul><li>'anchor'：表示点击的是 anchor 图标，即文章中标题前的 “#” 图标，此时的 this 上下文指向 outline.anchors；</li><li>'chapter'：表示点击的是导航菜单的链接，此时的 this 上下文指向 outline.chapters；</li><li>'up'：表示点击的是工具栏的向上按钮，此时的 this 上下文指向 outline.toolbar；</li><li>'down'：表示点击的是工具栏的向下按钮，此时的 this 上下文指向 outline.toolbar；</li></ul><p>注意：因为配置 afterScroll 回调函数会因为 4 个不同的 DOM 触发，所以需要根据 target 返回的值和此时的 this 指向判断处理。</p><pre class="section__pre"><code class="section__code">const defaults = Outline.DEFAULTS
-let outline
+})
 
-defaults.position = 'fixed'
-defaults.parentElement = '#aside'
-defaults.stickyHeight = 86
-defaults.homepage = './index.html'
-defaults.afterScroll = function(target) {
-  // 当然，如果你希望无论是点击什么都执行，就不需要判断了
-  // 直接些通用的滚动结束的逻辑即可
-  switch(target){
-    case 'anchor':
-      // 针对点击 # 的处理逻辑
-      break
-    case 'chapter':
-      // 针对点击导航菜单的处理逻辑
-      break
-    case 'up':
-      // 针对点击向上滚动按钮的处理逻辑
-      break
-    case 'down':
-      // 针对点击向下滚动按钮的处理逻辑
-      break
-  }
-}
-outline = new Outline(Outline.DEFAULTS)</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">message</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">''</dd></dl><p>可选，提示信息文本字符串。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+const message = new Message({
+  // 设置 duration: 0，则不会自动关闭
+  duration: 0,
+  message: '可选，执行提示信息展示的时间（单位：秒）。'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">effect</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">'default'</dd></dl><p>可选，指定提示信息的 UI 效果类型。</p><ul><li>default：默认类型，图标深色主题色底色，图标白色；</li><li>light: 图标没有底色，图标都有圆圈，图标颜色为主题色；</li><li>plain：无图标纯文本模式，提示框左边框有主题色，提示框有浅色背景色；</li></ul><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
+
+// 不设置 effect，则为默认 default UI 效果
+const message = new Message({
+  message: '可选，指定提示信息的 UI 效果类型。'
+})
+
+// light UI 效果
+const message = new Message({
+  effect: 'light',
+  type: 'success',
+  message: '可选，指定提示信息的 UI 效果类型。'
+})
+
+// plain UI 效果
+const message = new Message({
+  effect: 'plain',
+  type: 'warning',
+  message: '可选，指定提示信息的 UI 效果类型。'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">id</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">''</dd></dl><p>可选，指定 Message 对象实例的 id 值，可以通过 Message.close(id) 静态方法手动关闭提示信息。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
+
+const message = new Message({
+  id: 'info-message-001',
+  message: '可选，指定 Message 对象实例的 id 值，可以通过 Message.close(id) 静态方法手动关闭提示信息。'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">message</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">''</dd></dl><p>可选，提示信息文本字符串。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
 import Message from '@yaohaixiao/message.js/message'
 
 // 默认将转义 message 中的 HTML 的 < 转义为 &amp;lt;，> 转义为 &amp;gt;
@@ -85,60 +92,91 @@ const message = new Message({
 const message = new Message({
   dangerouslyUseHTMLString: true,
   message: '可选，&lt;a href="#beforeClose"&gt;beforeClose&lt;/a&gt; 用来指定提示信息关闭之前执行的回调函数。'
-})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-articleElement">articleElement</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String|HTMLElement</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">'#article'</dd></dl><dl class="section__dl"><dt class="section__dt">String：</dt><dd class="section__dd">选择器字符串，默认值：html,body（即 window 窗口）;</dd></dl><dl class="section__dl"><dt class="section__dt">HTMLElement：</dt><dd class="section__dd">'DOM 元素;</dd></dl><p>可选，用来指定页面中显示文章正文的 DOM 节点或者选择器字符串。</p><pre class="section__pre"><code class="section__code">// Default Selector
-const outline = new Outline(Outline.DEFAULTS)
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">offset</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Number</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">30</dd></dl><p>可选，用来指定提示信息距离窗口顶部的 top 数值，单位：px。</p><p>说明：如果使用 Message.info()、Message.success()、Message.warning() 和 Message.error() 4 个静态方法配置 offset 值，message.js 会自动定位多个提示框的 offset 值。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
 
-// Customize Selector
-const outline = new Outline({
-  articleElement: $('#main')
-})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-anchorURL">anchorURL</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">''</dd></dl><p>可选，用来指定文章标题锚点链接图标的链接地址：</p><pre class="section__pre"><code class="section__code">// Default URL - 默认链接，点击图标，页面会滚动到当前标题位置
-new Outline()
+// 不设置则为默认：30
+const message = new Message({
+  id: 'info-message-001',
+  message: '可选，用来指定提示信息距离窗口顶部的 top 数值。'
+})
 
-// Customize URL - 直接打开链接了
-new Outline({
-  anchorURL: 'http://www.yaohaixiao.com/'
-})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-afterSticky">afterSticky</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Function</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">null</dd></dl><p>可选，在设置 position: fixed 时，当导航菜单样式为 fixed 获取恢复为普通定位的时候，会触发执行 afterSticky 回调函数。</p><p>说明：afterSticky() 回调函数的 this 上下文执行 outline.chapters 对象。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">closed</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Boolean</dd></dl><p>closed 参数值为 true 表示菜单处于隐藏状态，否则表示菜单处于显示状态</p><h5 class="section__h4">isSticky</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Boolean</dd></dl><p>isSticky 参数值为 true 表示（position:fixed）菜单处于模拟 sticky 定位（position:fixed）状态，否则表示菜单处于普通状态。</p><pre class="section__pre"><code class="section__code">const $header = document.querySelector('#header')
-const HEADER_STICKY = 'header_sticky'
-const defaults = Outline.DEFAULTS
-let outline
+const message = new Message({
+  id: 'info-message-002',
+  offset: 40,
+  message: '可选，用来指定提示信息距离窗口顶部的 top 数值。'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">round</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Boolean</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">false</dd></dl><p>可选，用来指定提示框是的边角是否以圆形展示。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
 
-defaults.position = 'fixed'
-defaults.parentElement = '#aside'
-defaults.stickyHeight = 86
-defaults.homepage = './index.html'
-defaults.afterSticky = function(closed, isStickying) {
-  const $nav = this.$el
-  const BORDER_RIGHT = 'utils-border-right'
+// default UI 效果，并且是圆形边框
+const message = new Message({
+  round: true,
+  message: '可选，指定提示信息的 UI 效果类型。'
+})
 
-  if (closed) {
-    return false
-  }
+// light UI 效果，并且是圆形边框
+const message = new Message({
+  effect: 'light',
+  round: true,
+  type: 'success',
+  message: '可选，指定提示信息的 UI 效果类型。'
+})
 
-  if (isStickying) {
-    $nav.classList.add(BORDER_RIGHT)
-    $header.classList.add(HEADER_STICKY)
-  } else {
-    $nav.classList.remove(BORDER_RIGHT)
-    $header.classList.remove(HEADER_STICKY)
-  }
-}
-defaults.afterToggle = function(closed, isStickying) {
-  if (!isStickying) {
-    return false
-  }
+// plain UI 效果，并且是圆形边框
+const message = new Message({
+  effect: 'plain',
+  round: true,
+  type: 'warning',
+  message: '可选，指定提示信息的 UI 效果类型。'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">type</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">'info'</dd></dl><p>可选，指定提示信息的类型，message.js 有 4 中类型提示：</p><ul><li>info：普通提示信息；</li><li>success：成功提示信息；</li><li>warning：警告提示信息；</li><li>error：错误提示信息；</li></ul><p>另外，message.js 还提供了 Message.info()、Message.success()、Message.warning() 和 Message.error() 4 个静态方法，以对应的类型显示提示信息。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
 
-  if (closed) {
-    $header.classList.remove(HEADER_STICKY)
-  } else {
-    $header.classList.add(HEADER_STICKY)
-  }
-}
-outline = new Outline(Outline.DEFAULTS)</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="option-issues">issues</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">''</dd></dl><p>可选，针对 API 文档类的文章页面，指定项目 git 仓库 issues 页面地址：</p><pre class="section__pre"><code class="section__code">const outline = new Outline(Outline.DEFAULTS)
+// default UI 效果，普通提示信息
+const message = new Message({
+  round: true,
+  message: '可选，指定提示信息的 UI 效果类型。'
+})
 
-// 侧边栏的 Toolbar 会多出一个 issues 图标的按钮
-outline.reload({
-  issues: 'https://github.com/yaohaixiao/outline.js/issues'
-})</code></pre></div></section></section><section class="section"><header class="section__header"><h2 class="section__title">Properties</h2></header><div class="section__content"><p>message.js 对外放 4 个重要的属性：$el、attrs、id 和 offset。另外还提供一个静态属性：DEFAULTS。</p></div><section class="section"><header class="section__header"><h3 class="section__h3">$el</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">HTMLElement</dd></dl><p>$el 属性是 message.js 创建的提示信息框最外层的 DOM 元素。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+// light UI 效果，成功提示信息
+const message = new Message({
+  effect: 'light',
+  round: true,
+  type: 'success',
+  message: '可选，指定提示信息的 UI 效果类型。'
+})
+
+// light UI 效果，错误提示信息
+const message = new Message({
+  effect: 'light',
+  round: true,
+  type: 'error',
+  message: '可选，指定提示信息的 UI 效果类型。'
+})
+
+// plain UI 效果，警告提示信息
+const message = new Message({
+  effect: 'plain',
+  round: true,
+  type: 'warning',
+  message: '可选，指定提示信息的 UI 效果类型。'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">visible</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Boolean</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">true</dd></dl><p>可选，指定提示信息创建后是否可见，即是否立即显示。如果设置 false，则需要手动调用 open() 方法显示。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
+
+// 默认自动显示
+const message = new Message({
+  round: true,
+  message: '可选，指定提示信息创建后是否可见，即是否立即显示。'
+})
+
+// 默认自动显示
+const message = new Message({
+  round: true,
+  visible: false,
+  message: '可选，指定提示信息创建后是否可见，即是否立即显示。'
+})
+
+// 需要手动调用 open() 方法显示
+message.open()</code></pre></div></section></section><section class="section"><header class="section__header"><h2 class="section__title">Properties</h2></header><div class="section__content"><p>message.js 对外放 4 个重要的属性：$el、attrs、id 和 offset。另外还提供一个静态属性：DEFAULTS。</p></div><section class="section"><header class="section__header"><h3 class="section__h3">$el</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">HTMLElement</dd></dl><p>$el 属性是 message.js 创建的提示信息框最外层的 DOM 元素。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
 import Message from '@yaohaixiao/message.js/message'
 
 const message = new Message({
@@ -185,7 +223,7 @@ const message = new Message({
   message: '$el 属性是 message.js 创建的提示信息框最外层的 DOM 元素'
 })
 
-console.log(message.offset) // => 50</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">DEFAULTS</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object</dd></dl><p>静态属性，存储的是 Message 对象默认配置选项：</p><pre class="section__pre"><code class="section__code">Message.DEFAULTS = {
+console.log(message.offset) // => 50</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">Message.DEFAULTS</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object</dd></dl><p>静态属性，存储的是 Message 对象默认配置选项：</p><pre class="section__pre"><code class="section__code">Message.DEFAULTS = {
   id: '',
   type: 'info',
   effect: 'default',
@@ -199,217 +237,96 @@ console.log(message.offset) // => 50</code></pre></div></section><section class=
   visible: true,
   dangerouslyUseHTMLString: false,
   beforeClose: null
-}</code></pre></div></section></section><section class="section"><header class="section__header"><h2 class="section__title">Methods</h2></header><div class="section__content"><p>message.js 的提供了 6 个公共方法和 4 个静态方法：</p></div><section class="section"><header class="section__header"><h3 class="section__h3" id="method-attr">attr([prop, value])</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>attr() 方法用来设置或者获取初始化时配置的 attrs 信息的。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">prop</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String|HTMLElement</dd></dl><p>（可选）options 中的属性名称或者要配置的 attrs 信息。</p><h5 class="section__h4">value</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>（可选）要设置的 prop 属性的值</p><ul><li>不传递任何参数：返回完整的 attrs 配置信息；</li><li>仅传递 prop：</li><ul><li>String: 返回 attrs 配型信息中与 prop 对应的值；</li><li>Object: 用来设置 attrs 配置信息；</li></ul><li>同时传递 prop 和 value 参数：设置 attrs 配置信息中的某个属性值；</li></ul><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>配置信息 attrs 的属性值或者 Outline 对象。</p><pre class="section__pre"><code class="section__code">const outline = new Outline({
-   article: '#article',
-   title: 'Outline v2.0.0'
+}</code></pre></div></section></section><section class="section"><header class="section__header"><h2 class="section__title">Methods</h2></header><div class="section__content"><p>message.js 的提供了 6 个公共方法和 4 个静态方法：</p></div><section class="section"><header class="section__header"><h3 class="section__h3">attr([prop, value])</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>attr() 方法用来设置或者获取初始化时配置的 attrs 信息的。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">prop</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String|HTMLElement</dd></dl><p>（可选）options 中的属性名称或者要配置的 attrs 信息。</p><h5 class="section__h4">value</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>（可选）要设置的 prop 属性的值</p><ul><li>不传递任何参数：返回完整的 attrs 配置信息；</li><li>仅传递 prop：</li><ul><li>String: 返回 attrs 配型信息中与 prop 对应的值；</li><li>Object: 用来设置 attrs 配置信息；</li></ul><li>同时传递 prop 和 value 参数：设置 attrs 配置信息中的某个属性值；</li></ul><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>配置信息 attrs 的属性值或者 Message 对象。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
+
+const message = new Message({
+   type: 'success',
+   duration: 0,
+   message: 'attr() 方法用来设置或者获取初始化时配置的 attrs 信息的。'
 })
 
-outline.attr('title') // -> 'Outline v2.0.0'
-outline.attr('title', '目录') // -> 设置 title 配置信息的值为 '目录'
-outline.attr() // -> 返回完整配置参数 attrs 信息</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="method-removeButton">removeButton(name)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>removeButton() 方法移除工具栏按钮。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">name</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><p>（必须）按钮名称。</p><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Outline</dd></dl><p>Outline 对象，便于链式方法调用。</p><pre class="section__pre"><code class="section__code">const outline = new Outline(Outline.DEFAULTS)
-// 如果需要其它图标，可以到 https://github.com/yaohaixiao/icons.toolkit.vue 项目中选择需要的图标资源
-const clean = '&lt;svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 1024 1024"&gt;' +
-  '&lt;path d="M704 32V320h288a32 32 0 0 1 32 32v320a32 32 0 0 1-32 32H32a32 32 0 0 1-32-32v-320A32 32 0 0 1 32 320H320V32a32 32 0 0 1 32-32h320a32 32 0 0 1 32 32zM576 128H448v320H128v128h768V448H576V128z"&gt;&lt;/path&gt;' +
-  '&lt;path d="M896 576v416a32 32 0 0 1-32 32h-704a32 32 0 0 1-32-32V576h768z m-128 128H256v192h512v-192z"&gt;&lt;/path&gt;' +
-  '&lt;/svg&gt;'
+outline.attr('type') // -> 'success'
+outline.attr('message', '导入 Message 模块') // -> 设置 message 配置信息的值为 '导入 Message 模块'
+outline.attr() // -> 返回完整配置参数 attrs 信息</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">close()</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>close() 方法用于手动关闭提示信息。</p><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Message</dd></dl><p>Message 对象，便于链式方法调用。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
 
-outline.addButton({
-  name: 'clean',
-  // 图标
-  icon: clean,
-  size: 20,
-  color: '#f00'
-  // link 指定按钮点击后页面的跳转地址
-  link: 'https://github.com/yaohaixiao',
-  // link 和 action 只能二选一
-  // action 指定按钮的处理方式
-  action: {
-    type: 'click',
-    // 指定回调函数的 this 上下文，不设置 this 指向 toolbar 组件
-    context: outline,
-    handler: function() {
-      // 回调函数的处理逻辑
-    }
-  }
+const message = new Message({
+   type: 'success',
+   duration: 0,
+   message: 'close() 方法用于手动关闭提示信息。'
 })
 
-setTimeout(() => {
-  outline.removeButton('clean')
-}, 5000)</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="method-destroy">destroy()</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>destroy() 方法用于移除所有绘制的 DOM 节点，并移除绑定的事件处理器，同时重置所有 attrs 配置信息和 data 信息。</p><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Outline</dd></dl><p>Outline 对象，便于链式方法调用。</p><pre class="section__pre"><code class="section__code">const outline = new Outline({
-   article: '#article',
-   title: 'Outline v2.0.0'
+message.close()</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">destroy()</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>destroy() 方法用于移除所有绘制的 DOM 节点，并移除绑定的事件处理器，同时重置所有 attrs 配置信息和重置 property 属性。</p><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Message</dd></dl><p>Message 对象，便于链式方法调用。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
+
+const message = new Message({
+  duration: 0,
+  message: '可选，执行提示信息展示的时间（单位：秒）。'
 })
 
-outline.getChapters()
-// -> [{
-  code: "1",
-  id: 0,
-  index: 1,
-  level: 1,
-  pid: -1
-  rel: "heading-0"
-  text: "创作灵感"
-}]
+message.destroy()</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">isClosed()</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>isClosed() 方法返回 Message 实例的 closed 属性，用于判断提示是否已关闭。</p><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Boolean</dd></dl><p>是否被关闭。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
 
-outline.destroy()
-outline.getChapters()
-// 调用 destroy() 方法后，所有数据都清空了
-// -> []</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="method-addButton">addButton(button)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>addButton() 方法添加自定义的工具栏按钮。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">button</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object|Array</dd></dl><p>（必须）单个按钮的配置信息或者多个按钮的配置信息。</p><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Outline</dd></dl><p>Outline 对象，便于链式方法调用。</p><pre class="section__pre"><code class="section__code">const outline = new Outline(Outline.DEFAULTS)
-// 如果需要其它图标，可以到 https://github.com/yaohaixiao/icons.toolkit.vue 项目中选择需要的图标资源
-const clean = '&lt;svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 1024 1024"&gt;' +
-  '&lt;path d="M704 32V320h288a32 32 0 0 1 32 32v320a32 32 0 0 1-32 32H32a32 32 0 0 1-32-32v-320A32 32 0 0 1 32 320H320V32a32 32 0 0 1 32-32h320a32 32 0 0 1 32 32zM576 128H448v320H128v128h768V448H576V128z"&gt;&lt;/path&gt;' +
-  '&lt;path d="M896 576v416a32 32 0 0 1-32 32h-704a32 32 0 0 1-32-32V576h768z m-128 128H256v192h512v-192z"&gt;&lt;/path&gt;' +
-  '&lt;/svg&gt;'
-
-outline.addButton({
-  name: 'clean',
-  // 图标
-  icon: clean,
-  size: 20,
-  color: '#f00'
-  // link 指定按钮点击后页面的跳转地址
-  link: 'https://github.com/yaohaixiao',
-  // link 和 action 只能二选一
-  // action 指定按钮的处理方式
-  action: {
-    type: 'click',
-    // 指定回调函数的 this 上下文，不设置 this 指向 toolbar 组件
-    context: outline,
-    handler: function() {
-      // 回调函数的处理逻辑
-    }
-  }
-})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="method-getChapters">getChapters([isTreeStructured])</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>getChapters() 方法来获取 outline.js 分析的文章段落层次数据。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">isTreeStructured</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Boolean</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">false</dd></dl><p>（可选）是否为树结构的数据。</p><ul><li>false: (默认值）输出打平的一维数组格式数据；</li><li>true: 输出树结构格式的数据；</li></ul><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object</dd></dl><p>outline.js 分析的文章段落层次数据。</p><pre class="section__pre"><code class="section__code">const outline = new Outline({
-   article: '#article',
-   title: 'Outline v2.0.0'
+const message = new Message({
+  duration: 0,
+  message: 'isClosed() 方法返回 Message 实例的 closed 属性，用于判断提示是否已关闭。'
 })
 
-outline.getChapters()
-// 一维数组格式数据
-// -> [{
-  {
-    id: 2,
-    pid: -1,
-    level: 1,
-    rel: "heading-2",
-    text: "安装说明",
-    index: 3,
-    code: "3",
-  },
-  {
-    id: 3,
-    pid: 2,
-    level: 2,
-    rel: "heading-3",
-    text: "npm install",
-    index: 1,
-    code: "3.1",
-    children: []
-  },
-  {
-    id: 4,
-    pid: 2,
-    level: 2,
-    rel: "heading-4",
-    text: "CDN 调用",
-    index: 2,
-    code: "3.2",
-    children: []
-  },
-  {
-    id: 5,
-    pid: 2,
-    level: 2,
-    rel: "heading-5",
-    text: "调用本地JS文件",
-    index: 3,
-    code: "3.3",
-    children: []
-  }
-}]
+console.log(message.isClosed()) // -> false
+message.close()
+console.log(message.isClosed()) // -> true</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">open()</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>open() 方法用于手动显示提示信息。</p><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Message</dd></dl><p>Message 对象，便于链式方法调用。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
 
-outline.getChapters(true)
-// 有 children 属性的树结构对象数组
-// -> [{
-  code: "3",
-  id: 2,
-  index:3,
-  level:1,
-  pid:-1,
-  rel: "heading-2"
-  text:"安装说明",
-  children: [
-    {
-      id: 3,
-      pid: 2,
-      level: 2,
-      rel: "heading-3",
-      text: "npm install",
-      index: 1,
-      code: "3.1",
-      children: []
-    },
-    {
-      id: 4,
-      pid: 2,
-      level: 2,
-      rel: "heading-4",
-      text: "CDN 调用",
-      index: 2,
-      code: "3.2",
-      children: []
-    },
-    {
-      id: 5,
-      pid: 2,
-      level: 2,
-      rel: "heading-5",
-      text: "调用本地JS文件",
-      index: 3,
-      code: "3.3",
-      children: []
-    }
-  ]
-}]
-
-
-outline.destroy()
-outline.getChapters()
-// 调用 destroy() 方法后，所有数据都清空了
-// -> []</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="method-reload">reload(options)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>reload (options) 方法是（根据新的配置信息）重启程序方法：</p><ol><li>先移除所有绘制的 DOM 元素和绑定的事件处理器；</li><li>重新初始化程序；</li></ol><h4 class="section__h4">Parameters</h4><h5 class="section__h4">options</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object</dd></dl><p>（可选）初始化的配置参数。</p><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Outline</dd></dl><p>Outline 对象，便于链式方法调用。</p><pre class="section__pre"><code class="section__code">const outline = new Outline({
-  showCode: true
+const message = new Message({
+   type: 'success',
+   // 不会自动显示
+   visible: false,
+   duration: 0,
+   message: 'open() 方法用于手动显示提示信息。'
 })
 
-// 重启后，将不再显示段落层次编号
-outline.reload({
-  showCode: false
-})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="method-attr">attr([prop, value])</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>attr() 方法用来设置或者获取初始化时配置的 attrs 信息的。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">prop</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String|HTMLElement</dd></dl><p>（可选）options 中的属性名称或者要配置的 attrs 信息。</p><h5 class="section__h4">value</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>（可选）要设置的 prop 属性的值</p><ul><li>不传递任何参数：返回完整的 attrs 配置信息；</li><li>仅传递 prop：</li><ul><li>String: 返回 attrs 配型信息中与 prop 对应的值；</li><li>Object: 用来设置 attrs 配置信息；</li></ul><li>同时传递 prop 和 value 参数：设置 attrs 配置信息中的某个属性值；</li></ul><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>配置信息 attrs 的属性值或者 Outline 对象。</p><pre class="section__pre"><code class="section__code">const outline = new Outline({
-   article: '#article',
-   title: 'Outline v2.0.0'
+// 手动显示提示信息。
+message.open()</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">reload(options)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>reload() 方法是（根据新的配置信息）重启程序方法：</p><ol><li>先移除所有绘制的 DOM 元素和绑定的事件处理器；</li><li>重新初始化程序；</li></ol><h4 class="section__h4">Parameters</h4><h5 class="section__h4">options</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object</dd></dl><p>（可选）初始化的配置参数。</p><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Message</dd></dl><p>Message 对象，便于链式方法调用。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
+
+const message = new Message({
+  type: 'success',
+  // 不会自动显示
+  visible: false,
+  duration: 0,
+  essage: 'open() 方法用于手动显示提示信息。'
 })
 
-outline.attr('title') // -> 'Outline v2.0.0'
-outline.attr('title', '目录') // -> 设置 title 配置信息的值为 '目录'
-outline.attr() // -> 返回完整配置参数 attrs 信息</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="method-attr">attr([prop, value])</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>attr() 方法用来设置或者获取初始化时配置的 attrs 信息的。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">prop</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String|HTMLElement</dd></dl><p>（可选）options 中的属性名称或者要配置的 attrs 信息。</p><h5 class="section__h4">value</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>（可选）要设置的 prop 属性的值</p><ul><li>不传递任何参数：返回完整的 attrs 配置信息；</li><li>仅传递 prop：</li><ul><li>String: 返回 attrs 配型信息中与 prop 对应的值；</li><li>Object: 用来设置 attrs 配置信息；</li></ul><li>同时传递 prop 和 value 参数：设置 attrs 配置信息中的某个属性值；</li></ul><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>配置信息 attrs 的属性值或者 Outline 对象。</p><pre class="section__pre"><code class="section__code">const outline = new Outline({
-   article: '#article',
-   title: 'Outline v2.0.0'
-})
+message.reload({
+  type: 'error',
+  // 自动显示
+  visible: true,
+  duration: 0,
+  message: 'reload() 方法是（根据新的配置信息）重启程序方法。'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">Message.info(options)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>（静态方法）Message.info() 方法专门用来显示普通类型提示信息。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">options</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object</dd></dl><p>具体参数配置请参考 API 文档中 Options 参数的说明。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
 
-outline.attr('title') // -> 'Outline v2.0.0'
-outline.attr('title', '目录') // -> 设置 title 配置信息的值为 '目录'
-outline.attr() // -> 返回完整配置参数 attrs 信息</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="method-attr">attr([prop, value])</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>attr() 方法用来设置或者获取初始化时配置的 attrs 信息的。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">prop</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String|HTMLElement</dd></dl><p>（可选）options 中的属性名称或者要配置的 attrs 信息。</p><h5 class="section__h4">value</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>（可选）要设置的 prop 属性的值</p><ul><li>不传递任何参数：返回完整的 attrs 配置信息；</li><li>仅传递 prop：</li><ul><li>String: 返回 attrs 配型信息中与 prop 对应的值；</li><li>Object: 用来设置 attrs 配置信息；</li></ul><li>同时传递 prop 和 value 参数：设置 attrs 配置信息中的某个属性值；</li></ul><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>配置信息 attrs 的属性值或者 Outline 对象。</p><pre class="section__pre"><code class="section__code">const outline = new Outline({
-   article: '#article',
-   title: 'Outline v2.0.0'
-})
+Message.success({
+  round: true,
+  message: 'Message.info() 方法专门用来显示普通类型提示信息。'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">Message.warning(options)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>（静态方法）Message.warning() 方法专门用来显示警告类型提示信息。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">options</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object</dd></dl><p>具体参数配置请参考 API 文档中 Options 参数的说明。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
 
-outline.attr('title') // -> 'Outline v2.0.0'
-outline.attr('title', '目录') // -> 设置 title 配置信息的值为 '目录'
-outline.attr() // -> 返回完整配置参数 attrs 信息</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3" id="method-attr">attr([prop, value])</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>attr() 方法用来设置或者获取初始化时配置的 attrs 信息的。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">prop</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String|HTMLElement</dd></dl><p>（可选）options 中的属性名称或者要配置的 attrs 信息。</p><h5 class="section__h4">value</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>（可选）要设置的 prop 属性的值</p><ul><li>不传递任何参数：返回完整的 attrs 配置信息；</li><li>仅传递 prop：</li><ul><li>String: 返回 attrs 配型信息中与 prop 对应的值；</li><li>Object: 用来设置 attrs 配置信息；</li></ul><li>同时传递 prop 和 value 参数：设置 attrs 配置信息中的某个属性值；</li></ul><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>配置信息 attrs 的属性值或者 Outline 对象。</p><pre class="section__pre"><code class="section__code">const outline = new Outline({
-   article: '#article',
-   title: 'Outline v2.0.0'
-})
+Message.warning({
+  round: true,
+  message: 'Message.warning() 方法专门用来显示警告类型提示信息。'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">Message.success(options)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>（静态方法）Message.success() 方法专门用来显示成功类型提示信息。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">options</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object</dd></dl><p>具体参数配置请参考 API 文档中 Options 参数的说明。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
 
-outline.attr('title') // -> 'Outline v2.0.0'
-outline.attr('title', '目录') // -> 设置 title 配置信息的值为 '目录'
-outline.attr() // -> 返回完整配置参数 attrs 信息</code></pre></div></section></section></article><footer class="main__footer" id="footer"><p>Copyright &copy; 2023 <a href="https://github.com/yaohaixiao">Robert Yao</a>, all right reserved.</p><p>Code licensed under&nbsp;<a href="http://opensource.org/licenses/mit-license.html">MIT License</a></p><p>Documentation licensed under<a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a></p><p><a href="https://github.com/yaohaixiao/message.js">View on GitHub</a> ·
+Message.success({
+  round: true,
+  message: 'Message.success() 方法专门用来显示成功类型提示信息。'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">Message.error(options)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>（静态方法）Message.error() 方法专门用来显示错误类型提示信息。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">options</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object</dd></dl><p>具体参数配置请参考 API 文档中 Options 参数的说明。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
+
+Message.success({
+  round: true,
+  message: 'Message.error() 方法专门用来显示错误类型提示信息。'
+})</code></pre></div></section></section></article><footer class="main__footer" id="footer"><p>Copyright &copy; 2023 <a href="https://github.com/yaohaixiao">Robert Yao</a>, all right reserved.</p><p>Code licensed under&nbsp;<a href="http://opensource.org/licenses/mit-license.html">MIT License</a></p><p>Documentation licensed under<a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a></p><p><a href="https://github.com/yaohaixiao/message.js">View on GitHub</a> ·
 <a href="https://github.com/yaohaixiao/message.js/issues">Issues</a></p></footer></main></div><script src="js/docs.min.js"></script></body></html>

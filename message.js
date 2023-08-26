@@ -15,10 +15,8 @@ import icon from './utils/icons/icon'
 import paint from './utils/icons/paint'
 import on from './utils/event/on'
 import off from './utils/event/off'
-import close from './utils/close'
-import clear from './utils/clear'
-import TYPES from './utils/enum'
 
+const TYPES = ['info', 'success', 'warning', 'error']
 const instances = []
 let instance
 
@@ -29,7 +27,7 @@ class Message {
     this.attrs = cloneDeep(Message.DEFAULTS)
 
     this.id = ''
-    this.closed = true
+    this.closed = false
     this.visible = false
     this.offset = -50
     this.timer = null
@@ -43,7 +41,6 @@ class Message {
   initialize(options) {
     this.attr(options)
     this.id = this.attr('id')
-    this.closed = !this.attr('visible')
     this.offset = this.attr('offset') || -50
 
     this.render().addListeners()
@@ -206,7 +203,6 @@ class Message {
 
     later(() => {
       this.visible = true
-      this.closed = false
 
       addClass($el, 'mjs-message_visible')
       $el.style.cssText = cssRules
@@ -222,17 +218,15 @@ class Message {
     const beforeClose = this.attr('beforeClose')
     const cssRules = `top:-50px;`
 
-    this.closed = true
-
     if (isFunction(beforeClose)) {
       beforeClose(this)
     }
 
-    this.visible = false
-    this.closed = true
-
     $el.style.cssText = cssRules
     removeClass($el, 'mjs-message_visible')
+
+    this.visible = false
+    this.closed = true
 
     later(() => {
       this.destroy()
@@ -371,9 +365,47 @@ TYPES.forEach((type) => {
 })
 
 // 关闭指定 id 消息的静态方法
-Message.close = close
+Message.close = (id, beforeClose) => {
+  const len = instances.length
+  let index = -1
+  let i
+  let offsetHeight
+
+  instances.forEach((instance, i) => {
+    // 在 instances 中通过 id 找到要关闭的消息
+    if (id === instance.id) {
+      offsetHeight = instance.$el.offsetHeight
+      index = i
+
+      // 关闭消息
+      if (isFunction(beforeClose)) {
+        beforeClose(instance)
+      }
+
+      instances.splice(i, 1)
+    }
+  })
+
+  if (len <= 1 || index === -1 || index > instances.length - 1) {
+    return false
+  }
+
+  i = index
+
+  // 界面中的消息逐个向上收起
+  for (; i < len - 1; i += 1) {
+    const dom = instances[i].$el
+
+    dom.style['top'] = parseInt(dom.style['top'], 10) - offsetHeight - 16 + 'px'
+  }
+}
 
 // 关闭所有消息的静态方法
-Message.clear = clear
+Message.clear = () => {
+  let i = instances.length - 1
+  for (; i >= 0; i--) {
+    instances[i].close()
+  }
+}
 
 export default Message

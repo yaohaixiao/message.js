@@ -9,7 +9,32 @@ section.section
     dl.section__dl
       dt.section__dt Default：
       dd.section__dd 'default'
-    p 可选，指定提示信息的 UI 类型。
+    p 可选，指定提示信息的 UI 效果类型。
+    ul
+      li default：默认类型，图标深色主题色底色，图标白色；
+      li light: 图标没有底色，图标都有圆圈，图标颜色为主题色；
+      li plain：无图标纯文本模式，提示框左边框有主题色，提示框有浅色背景色；
     pre.section__pre
       code.section__code.
+        // 导入 Message 模块
+        import Message from '@yaohaixiao/message.js/message'
+
+        // 不设置 effect，则为默认 default UI 效果
+        const message = new Message({
+          message: '可选，指定提示信息的 UI 效果类型。'
+        })
+
+        // light UI 效果
+        const message = new Message({
+          effect: 'light',
+          type: 'success',
+          message: '可选，指定提示信息的 UI 效果类型。'
+        })
+
+        // plain UI 效果
+        const message = new Message({
+          effect: 'plain',
+          type: 'warning',
+          message: '可选，指定提示信息的 UI 效果类型。'
+        })
 

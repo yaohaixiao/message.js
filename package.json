@@ -13,6 +13,7 @@
   ],
   "scripts": {
     "start": "gulp start",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "build:lib:script": "rollup -c build/rollup.config.lib.js --bundleConfigAsCjs",
     "build:lib:style": "gulp buildLibStyles",
     "build:lib": "npm run build:lib:script && npm run build:lib:style",
@@ -26,8 +27,7 @@
     "prettier:write": "npx prettier --write \"./**/*.(js|less)\"",
     "test:unit": "jest --config jest.config.js",
     "test": "npm run lint:fix && npm run prettier:write && npm run test:unit",
-    "prepare": "husky install",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",

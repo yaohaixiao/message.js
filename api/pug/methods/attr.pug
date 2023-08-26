@@ -1,6 +1,6 @@
 section.section
   header.section__header
-    h3#method-attr.section__h3 attr([prop, value])
+    h3.section__h3 attr([prop, value])
   div.section__content
     h4.section__h4 Description
     p attr() 方法用来设置或者获取初始化时配置的 attrs 信息的。
@@ -26,14 +26,18 @@ section.section
     dl.section__dl
       dt.section__dt Type：
       dd.section__dd Any
-    p 配置信息 attrs 的属性值或者 Outline 对象。
+    p 配置信息 attrs 的属性值或者 Message 对象。
     pre.section__pre
       code.section__code.
-        const outline = new Outline({
-           article: '#article',
-           title: 'Outline v2.0.0'
+        // 导入 Message 模块
+        import Message from '@yaohaixiao/message.js/message'
+
+        const message = new Message({
+           type: 'success',
+           duration: 0,
+           message: 'attr() 方法用来设置或者获取初始化时配置的 attrs 信息的。'
         })
 
-        outline.attr('title') // -> 'Outline v2.0.0'
-        outline.attr('title', '目录') // -> 设置 title 配置信息的值为 '目录'
+        outline.attr('type') // -> 'success'
+        outline.attr('message', '导入 Message 模块') // -> 设置 message 配置信息的值为 '导入 Message 模块'
         outline.attr() // -> 返回完整配置参数 attrs 信息

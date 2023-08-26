@@ -25,13 +25,12 @@ defaults.chapterTextFilter = (text) => {
 outline = new Outline(Outline.DEFAULTS)
 
 Message.info({
-  duration: 0,
-  message: 'https://github.com/yaohaixiao/message.js'
+  duration: 5,
+  message: 'message.js - 一个小巧实用的 JavaScript 提示信息工具库。'
 })
 
 setTimeout(() => {
   Message.success({
-    duration: 0,
     round: true,
     message: 'message.js - 一个小巧实用的 JavaScript 提示信息工具库。'
   })
@@ -42,11 +41,11 @@ setTimeout(() => {
     effect: 'light',
     message: 'message.js - 一个小巧实用的 JavaScript 提示信息工具库。'
   })
-}, 4000)
+}, 3000)
 
 setTimeout(() => {
   Message.error({
     effect: 'plain',
     message: 'message.js - 一个小巧实用的 JavaScript 提示信息工具库。'
   })
-}, 6000)
+}, 4000)

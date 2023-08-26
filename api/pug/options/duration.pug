@@ -9,7 +9,7 @@ section.section
     dl.section__dl
       dt.section__dt Default：
       dd.section__dd 6
-    p 可选，执行提示信息展示的时间（单位：秒）。
+    p 可选，执行提示信息展示的时间（单位：秒），设置 duration: 0，则不会自动关闭。
     pre.section__pre
       code.section__code.
         // 导入 Message 模块
@@ -18,5 +18,11 @@ section.section
         const message = new Message({
           // 提示信息区将在 14 秒后自动关闭
           duration: 14,
+          message: '可选，执行提示信息展示的时间（单位：秒）。'
+        })
+
+        const message = new Message({
+          // 设置 duration: 0，则不会自动关闭
+          duration: 0,
           message: '可选，执行提示信息展示的时间（单位：秒）。'
         })

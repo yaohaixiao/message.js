@@ -1,20 +1,32 @@
 section.section
   header.section__header
-    h3#option-issues.section__h3 issues
+    h3.section__h3 visible
   div.section__content
     h4.section__h4 Description
     dl.section__dl
       dt.section__dt Type：
-      dd.section__dd String
+      dd.section__dd Boolean
     dl.section__dl
       dt.section__dt Default：
-      dd.section__dd ''
-    p 可选，针对 API 文档类的文章页面，指定项目 git 仓库 issues 页面地址：
+      dd.section__dd true
+    p 可选，指定提示信息创建后是否可见，即是否立即显示。如果设置 false，则需要手动调用 open() 方法显示。
     pre.section__pre
       code.section__code.
-        const outline = new Outline(Outline.DEFAULTS)
+        // 导入 Message 模块
+        import Message from '@yaohaixiao/message.js/message'
 
-        // 侧边栏的 Toolbar 会多出一个 issues 图标的按钮
-        outline.reload({
-          issues: 'https://github.com/yaohaixiao/outline.js/issues'
+        // 默认自动显示
+        const message = new Message({
+          round: true,
+          message: '可选，指定提示信息创建后是否可见，即是否立即显示。'
         })
+
+        // 默认自动显示
+        const message = new Message({
+          round: true,
+          visible: false,
+          message: '可选，指定提示信息创建后是否可见，即是否立即显示。'
+        })
+
+        // 需要手动调用 open() 方法显示
+        message.open()

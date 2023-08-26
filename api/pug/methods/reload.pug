@@ -1,9 +1,9 @@
 section.section
   header.section__header
-    h3#method-reload.section__h3 reload(options)
+    h3.section__h3 reload(options)
   div.section__content
     h4.section__h4 Description
-    p reload (options) 方法是（根据新的配置信息）重启程序方法：
+    p reload() 方法是（根据新的配置信息）重启程序方法：
     ol
       li 先移除所有绘制的 DOM 元素和绑定的事件处理器；
       li 重新初始化程序；
@@ -16,15 +16,25 @@ section.section
     h4.section__h4 Returns
     dl.section__dl
       dt.section__dt Type：
-      dd.section__dd Outline
-    p Outline 对象，便于链式方法调用。
+      dd.section__dd Message
+    p Message 对象，便于链式方法调用。
     pre.section__pre
       code.section__code.
-        const outline = new Outline({
-          showCode: true
+        // 导入 Message 模块
+        import Message from '@yaohaixiao/message.js/message'
+
+        const message = new Message({
+          type: 'success',
+          // 不会自动显示
+          visible: false,
+          duration: 0,
+          essage: 'open() 方法用于手动显示提示信息。'
         })
 
-        // 重启后，将不再显示段落层次编号
-        outline.reload({
-          showCode: false
+        message.reload({
+          type: 'error',
+          // 自动显示
+          visible: true,
+          duration: 0,
+          message: 'reload() 方法是（根据新的配置信息）重启程序方法。'
         })
