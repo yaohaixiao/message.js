@@ -14,10 +14,6 @@ defaults.articleElement = '#article'
 defaults.git = 'https://github.com/yaohaixiao/message.js'
 defaults.tags = 'https://github.com/yaohaixiao/message.js/tags'
 defaults.issues = 'https://github.com/yaohaixiao/message.js/issues'
-defaults.print = {
-  element: '#article',
-  title: 'message.js'
-}
 defaults.chapterTextFilter = (text) => {
   return text.replace(/\(.*?\)/, '()')
 }
@@ -41,11 +37,11 @@ setTimeout(() => {
     effect: 'light',
     message: 'message.js - 一个小巧实用的 JavaScript 提示信息工具库。'
   })
-}, 3000)
+}, 4000)
 
 setTimeout(() => {
   Message.error({
     effect: 'plain',
     message: 'message.js - 一个小巧实用的 JavaScript 提示信息工具库。'
   })
-}, 4000)
+}, 6000)

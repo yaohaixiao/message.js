@@ -403,7 +403,7 @@ Message.close = (id, beforeClose) => {
 // 关闭所有消息的静态方法
 Message.clear = () => {
   let i = instances.length - 1
-  for (; i >= 0; i--) {
+  for (; i >= 0; i -= 1) {
     instances[i].close()
   }
 }

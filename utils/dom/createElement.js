@@ -1,9 +1,8 @@
-import hasOwn from '../lang/hasOwn'
 import isObject from '../types/isObject'
 import isString from '../types/isString'
 import isArray from '../types/isArray'
 import isDOM from '../types/isDOM'
-import setAttribute from './setAttribute'
+import setAttributes from './setAttributes'
 
 /**
  * 创建 DOM 节点，并添加属性和子节点
@@ -37,11 +36,7 @@ const createElement = (tagName, attrs, children) => {
   }
 
   if (isObject(attrs)) {
-    Object.keys(attrs).forEach((attr) => {
-      if (hasOwn(attrs, attr)) {
-        setAttribute($el, attr, attrs[attr])
-      }
-    })
+    setAttributes($el, attrs)
   } else if (isArray(attrs) && attrs.every((attr) => isValidChild(attr))) {
     attrs.forEach((child) => {
       append(child)
