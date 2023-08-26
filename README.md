@@ -55,6 +55,8 @@ npm i @yaohaixiao/message.js
 
 ## Usage
 
+message.js 调用起来十分便捷，配置信息也十分丰富。
+
 ```js
 // 导入 Message 模块
 import Message from '@yaohaixiao/message.js/message'
