@@ -8,14 +8,20 @@ section.section
     h5.section__h4 options
     dl.section__dl
       dt.section__dt Type：
-      dd.section__dd Object
-    p 具体参数配置请参考 API 文档中 Options 参数的说明。
+      dd.section__dd Object|String
+    ul
+      li Object：请参考 API 文档中 Options 参数的说明；
+      li String: message.js 会将参数调整为 { message: options }，直接将参数文本作为 message 输出；
     pre.section__pre
       code.section__code.
         // 导入 Message 模块
         import Message from '@yaohaixiao/message.js/message'
 
-        Message.success({
+        // Object 类型参数
+        Message.error({
           round: true,
           message: 'Message.error() 方法专门用来显示错误类型提示信息。'
         })
+
+        // String 类型参数
+        Message.error('Message.error() 方法专门用来显示错误类型提示信息。')

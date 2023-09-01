@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="keywords" content="message.js,JavaScript,message,Toolkit"><meta name="description" content="message.js - 一个小巧实用的 JavaScript 提示信息工具库。"><link rel="shortcut icon" href="./favicon.ico"><title>message.js | 一个小巧实用的 JavaScript 提示信息工具库。</title><link rel="preload" href="css/docs.min.css" as="style"><link rel="preload" href="css/docs.min.js" as="script"><link href="css/docs.min.css" rel="stylesheet" type="text/css"></head><body><div class="docs" id="docs"><aside class="aside" id="aside"><header class="aside__header"><h2 class="aside__h2">API Documentation</h2></header></aside><main class="main" id="main"><header class="main__header" id="header"><h1 class="main__h1"><strong class="main__name">message.</strong>js</h1><p class="main__tagline">message.js - 一个小巧实用的 JavaScript 提示信息工具库。</p></header><div class="main__cdn" id="cdn"><pre class="main__pre"><code>&lt;script src="https://cdn.jsdelivr.net/gh/yaohaixiao/message.js/message.min.js"&gt;&lt;/script&gt;</code></pre></div><div class="main__download" id="download"><a class="main__button" href="https://github.com/yaohaixiao/message.js/archive/refs/heads/main.zip" target="_blank">Download Zip</a></div><article id="article"><section class="section"><header class="section__header"><h2 class="section__title">Options</h2></header><div class="section__content"><p>message.js 有者丰富的配置选项，以不同的展示方式展示提示信息。</p></div><section class="section"><header class="section__header"><h3 class="section__h3">beforeClose</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Function</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">null</dd></dl><p>可选，用来指定提示信息关闭之前执行的回调函数。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="keywords" content="message.js,JavaScript,message,Toolkit"><meta name="description" content="message.js - 一个小巧实用的 JavaScript 提示信息工具库。"><link rel="shortcut icon" href="./favicon.ico"><title>message.js | 一个小巧实用的 JavaScript 提示信息工具库。</title><link rel="preload" href="css/docs.min.css" as="style"><link rel="preload" href="js/docs.min.js" as="script"><link rel="preload" href="js/message.min.js" as="script"><link href="css/docs.min.css" rel="stylesheet" type="text/css"></head><body><div class="docs" id="docs"><aside class="aside" id="aside"><header class="aside__header"><h2 class="aside__h2">API Documentation</h2></header></aside><main class="main" id="main"><header class="main__header" id="header"><h1 class="main__h1"><strong class="main__name">message.</strong>js</h1><p class="main__tagline">message.js - 一个小巧实用的 JavaScript 提示信息工具库。</p></header><div class="main__cdn" id="cdn"><pre class="main__pre"><code>&lt;script src="https://cdn.jsdelivr.net/gh/yaohaixiao/message.js/message.min.js"&gt;&lt;/script&gt;</code></pre></div><div class="main__download" id="download"><a class="main__button" href="https://github.com/yaohaixiao/message.js/archive/refs/heads/main.zip" target="_blank">Download Zip</a></div><article id="article"><section class="section"><header class="section__header"><h2 class="section__title">Options</h2></header><div class="section__content"><p>message.js 有者丰富的配置选项，以不同的展示方式展示提示信息。</p></div><section class="section"><header class="section__header"><h3 class="section__h3">beforeClose</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Function</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">null</dd></dl><p>可选，用来指定提示信息关闭之前执行的回调函数。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
 import Message from '@yaohaixiao/message.js/message'
 
 const message = new Message({
@@ -34,6 +34,19 @@ const message = new Message({
 const message = new Message({
   dangerouslyUseHTMLString: true,
   message: '可选，&lt;a href="#beforeClose"&gt;beforeClose&lt;/a&gt; 用来指定提示信息关闭之前执行的回调函数。'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">destroyAfterClosed</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Boolean</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">true</dd></dl><p>可选，用来指定提示信息关闭后，是否自动销毁。默认关闭后是自动销毁的。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+import Message from '@yaohaixiao/message.js/message'
+
+const message = new Message({
+  // 设置为 false，message 可以反复使用
+  destroyAfterClosed: false
+  message: '可选，&lt;a href="#beforeClose"&gt;beforeClose&lt;/a&gt; 用来指定提示信息关闭之前执行的回调函数。'
+})
+
+// 调整配置后，再次打开
+message.open({
+  type: 'success',
+  message: '调整配置后，再次打开'
 })</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">delay</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Number</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">2</dd></dl><p>可选，指定鼠标离开提示信息区域后，提示信息延迟关闭的时间（单位：秒）。</p><p>提示显示展示期间，用户将鼠标光标放置于提示信息区域时，提示信息将不会自动收起关闭，delay 指定的是鼠标离开提示信息区域后，提示信息延迟关闭的时间。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
 import Message from '@yaohaixiao/message.js/message'
 
@@ -236,6 +249,7 @@ console.log(message.offset) // => 50</code></pre></div></section><section class=
   closable: true,
   visible: true,
   dangerouslyUseHTMLString: false,
+  destroyAfterClosed: true,
   beforeClose: null
 }</code></pre></div></section></section><section class="section"><header class="section__header"><h2 class="section__title">Methods</h2></header><div class="section__content"><p>message.js 的提供了 6 个公共方法和 4 个静态方法：</p></div><section class="section"><header class="section__header"><h3 class="section__h3">attr([prop, value])</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>attr() 方法用来设置或者获取初始化时配置的 attrs 信息的。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">prop</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String|HTMLElement</dd></dl><p>（可选）options 中的属性名称或者要配置的 attrs 信息。</p><h5 class="section__h4">value</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>（可选）要设置的 prop 属性的值</p><ul><li>不传递任何参数：返回完整的 attrs 配置信息；</li><li>仅传递 prop：</li><ul><li>String: 返回 attrs 配型信息中与 prop 对应的值；</li><li>Object: 用来设置 attrs 配置信息；</li></ul><li>同时传递 prop 和 value 参数：设置 attrs 配置信息中的某个属性值；</li></ul><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Any</dd></dl><p>配置信息 attrs 的属性值或者 Message 对象。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
 import Message from '@yaohaixiao/message.js/message'
@@ -275,7 +289,7 @@ const message = new Message({
 
 console.log(message.isClosed()) // -> false
 message.close()
-console.log(message.isClosed()) // -> true</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">open()</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>open() 方法用于手动显示提示信息。</p><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Message</dd></dl><p>Message 对象，便于链式方法调用。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+console.log(message.isClosed()) // -> true</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">open([options])</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>open() 方法用于手动显示提示信息。</p><h4 class="section__h4">Parameters<h5 class="section__h4">options</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object|String</dd></dl><ul><li>Object：请参考 API 文档中 Options 参数的说明；</li><li>String: message.js 会将参数调整为 { message: options }，直接将参数文本作为 message 输出；</li></ul></h4><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Message</dd></dl><p>Message 对象，便于链式方法调用。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
 import Message from '@yaohaixiao/message.js/message'
 
 const message = new Message({
@@ -287,7 +301,30 @@ const message = new Message({
 })
 
 // 手动显示提示信息。
-message.open()</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">reload(options)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>reload() 方法是（根据新的配置信息）重启程序方法：</p><ol><li>先移除所有绘制的 DOM 元素和绑定的事件处理器；</li><li>重新初始化程序；</li></ol><h4 class="section__h4">Parameters</h4><h5 class="section__h4">options</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object</dd></dl><p>（可选）初始化的配置参数。</p><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Message</dd></dl><p>Message 对象，便于链式方法调用。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+// 无参数
+message.open()
+
+const tip = new Message({
+   // 只有 destroyAfterClosed 参数为 false 时，
+   // 才能保留 Message 实例创建的 DOM 元素，从而
+   // 多次使用 open() 方法显示信息
+   destroyAfterClosed: false,
+   type: 'success',
+   // 不会自动显示
+   visible: false,
+   duration: 0,
+   message: 'open() 方法用于手动显示提示信息。'
+})
+
+// String 类型参数
+tip.open('String 类型参数')
+
+// Object 类型参数
+tip.open({
+  // 将显示为普通类型提示信息
+  type: 'info',
+  message: 'Object 类型参数'
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">reload(options)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>reload() 方法是（根据新的配置信息）重启程序方法：</p><ol><li>先移除所有绘制的 DOM 元素和绑定的事件处理器；</li><li>重新初始化程序；</li></ol><h4 class="section__h4">Parameters</h4><h5 class="section__h4">options</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object</dd></dl><p>（可选）初始化的配置参数。</p><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Message</dd></dl><p>Message 对象，便于链式方法调用。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
 import Message from '@yaohaixiao/message.js/message'
 
 const message = new Message({
@@ -304,29 +341,142 @@ message.reload({
   visible: true,
   duration: 0,
   message: 'reload() 方法是（根据新的配置信息）重启程序方法。'
-})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">Message.info(options)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>（静态方法）Message.info() 方法专门用来显示普通类型提示信息。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">options</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object</dd></dl><p>具体参数配置请参考 API 文档中 Options 参数的说明。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">$emit(topic[, data, async = true])</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>$emit()方法用来发布订阅主题信息。</p><p>message.js 默认是采用异步方式发布的。以确保在消费者处理主题时，主题的发起者不会被阻止。 当然 $emit() 方法也支持同步主题发布。</p><dl class="section__dl"><dt class="section__dt">Category：</dt><dd class="section__dd">Core</dd></dl><h4 class="section__h4">Parameters</h4><h5 class="section__h4">topic</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><p>（必须）主题名称。</p><h5 class="section__h4">data</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object</dd></dl><p>（可选）消息传递的数据对象。</p><h5 class="section__h4">async</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Boolean</dd></dl><dl class="section__dl"><dt class="section__dt">Default：</dt><dd class="section__dd">true</dd></dl><p>(可选) 是否异步发布。默认值：true。</p><ul><li>当 async 设置为 true（默认） 时，异步发布；</li><li>当 async 设置为 false 时，同步发布；</li></ul><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Message</dd></dl><p>Message 对象，以便实现链式调用。</p><pre class="section__pre"><code class="section__code">const message = new Message({
+  message: '$emit()方法用来发布订阅主题信息。'
+})
+
+const handler = (msg) => {
+  console.log(msg)
+}
+
+message.$on('created', handler)
+message.$on('mounted', handler)
+
+// 异步发布
+message.$emit('mounted') // -> 'ok'
+
+// 同步发布
+// 延迟10毫秒：应该看输出 ok 后输出
+message.$emit('created')</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">$on(topic, handler)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>$on() 方法用来订阅主题，并给出处理器函数。</p><dl class="section__dl"><dt class="section__dt">Category：</dt><dd class="section__dd">Core</dd></dl><h4 class="section__h4">Parameters</h4><h5 class="section__h4">topic</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><p>（必须）主题名称。</p><h5 class="section__h4">handler</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Function</dd></dl><p>（（必须）主题的处理器函数。</p><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String。</dd></dl><p>唯一的 token 字符串，例如：'guid-1'。</p><pre class="section__pre"><code class="section__code">const message = new Message({
+  message: '$off() 用来取消订阅主题。'
+})
+
+const handler = function(attrs) {
+  // this 上下文指向 outline 实例
+  this.attr()
+  console.log('attrs: ', attrs)
+}
+
+message.$on('created', handler)
+
+// 手动触发 created 事件
+message.$emit('created')</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">$off(topic[, token])</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>$off() 用来取消订阅主题。</p><dl class="section__dl"><dt class="section__dt">Category：</dt><dd class="section__dd">Core</dd></dl><h4 class="section__h4">Parameters</h4><h5 class="section__h4">topic</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">String</dd></dl><p>（必须）主题名称。</p><h5 class="section__h4">token</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Function | String</dd></dl><p>（可选）订阅主题的处理器函数或者唯一 Id 值。</p><ul><li>为传递 token 参数：取消指定 topic 的订阅；</li><li>传递 token 参数：仅删除 topic 订阅信息中与 token 对应的事件处理器</li></ul><h4 class="section__h4">Returns</h4><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Message</dd></dl><p>Message 对象，以便实现链式调用。</p><pre class="section__pre"><code class="section__code">const message = new Message({
+  message: '$off() 用来取消订阅主题。'
+})
+
+const handler = (msg) => {
+  console.log('handler:', msg)
+}
+
+message.$on('created')
+
+// 取消订阅 author 主题
+message.$off('created')
+
+// 不会有任何反应，因为已经取消订阅了
+message.$emit('created')</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">Message.info(options)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>（静态方法）Message.info() 方法专门用来显示普通类型提示信息。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">options</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object|String</dd></dl><ul><li>Object：请参考 API 文档中 Options 参数的说明；</li><li>String: message.js 会将参数调整为 { message: options }，直接将参数文本作为 message 输出；</li></ul><pre class="section__pre"><code class="section__code">// 导入 Message 模块
 import Message from '@yaohaixiao/message.js/message'
 
-Message.success({
+// Object 类型参数
+Message.info({
   round: true,
   message: 'Message.info() 方法专门用来显示普通类型提示信息。'
-})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">Message.warning(options)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>（静态方法）Message.warning() 方法专门用来显示警告类型提示信息。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">options</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object</dd></dl><p>具体参数配置请参考 API 文档中 Options 参数的说明。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+})
+
+// String 类型参数
+Message.error('Message.info() 方法专门用来显示普通类型提示信息。')</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">Message.warning(options)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>（静态方法）Message.warning() 方法专门用来显示警告类型提示信息。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">options</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object|String</dd></dl><ul><li>Object：请参考 API 文档中 Options 参数的说明；</li><li>String: message.js 会将参数调整为 { message: options }，直接将参数文本作为 message 输出；</li></ul><pre class="section__pre"><code class="section__code">// 导入 Message 模块
 import Message from '@yaohaixiao/message.js/message'
 
+// Object 类型参数
 Message.warning({
   round: true,
   message: 'Message.warning() 方法专门用来显示警告类型提示信息。'
-})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">Message.success(options)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>（静态方法）Message.success() 方法专门用来显示成功类型提示信息。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">options</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object</dd></dl><p>具体参数配置请参考 API 文档中 Options 参数的说明。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+})
+
+// String 类型参数
+Message.warning('Message.warning() 方法专门用来显示警告类型提示信息。')</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">Message.success(options)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>（静态方法）Message.success() 方法专门用来显示成功类型提示信息。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">options</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object|String</dd></dl><ul><li>Object：请参考 API 文档中 Options 参数的说明；</li><li>String: message.js 会将参数调整为 { message: options }，直接将参数文本作为 message 输出；</li></ul><pre class="section__pre"><code class="section__code">// 导入 Message 模块
 import Message from '@yaohaixiao/message.js/message'
 
+// Object 类型参数
 Message.success({
   round: true,
   message: 'Message.success() 方法专门用来显示成功类型提示信息。'
-})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">Message.error(options)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>（静态方法）Message.error() 方法专门用来显示错误类型提示信息。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">options</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object</dd></dl><p>具体参数配置请参考 API 文档中 Options 参数的说明。</p><pre class="section__pre"><code class="section__code">// 导入 Message 模块
+})
+
+// String 类型参数
+Message.success('Message.success() 方法专门用来显示成功类型提示信息。')</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">Message.error(options)</h3></header><div class="section__content"><h4 class="section__h4">Description</h4><p>（静态方法）Message.error() 方法专门用来显示错误类型提示信息。</p><h4 class="section__h4">Parameters</h4><h5 class="section__h4">options</h5><dl class="section__dl"><dt class="section__dt">Type：</dt><dd class="section__dd">Object|String</dd></dl><ul><li>Object：请参考 API 文档中 Options 参数的说明；</li><li>String: message.js 会将参数调整为 { message: options }，直接将参数文本作为 message 输出；</li></ul><pre class="section__pre"><code class="section__code">// 导入 Message 模块
 import Message from '@yaohaixiao/message.js/message'
 
-Message.success({
+// Object 类型参数
+Message.error({
   round: true,
   message: 'Message.error() 方法专门用来显示错误类型提示信息。'
-})</code></pre></div></section></section></article><footer class="main__footer" id="footer"><p>Copyright &copy; 2023 <a href="https://github.com/yaohaixiao">Robert Yao</a>, all right reserved.</p><p>Code licensed under&nbsp;<a href="http://opensource.org/licenses/mit-license.html">MIT License</a></p><p>Documentation licensed under<a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a></p><p><a href="https://github.com/yaohaixiao/message.js">View on GitHub</a> ·
-<a href="https://github.com/yaohaixiao/message.js/issues">Issues</a></p></footer></main></div><script src="js/docs.min.js"></script></body></html>
+})
+
+// String 类型参数
+Message.error('Message.error() 方法专门用来显示错误类型提示信息。')</code></pre></div></section></section><section class="section"><header class="section__header"><h2 class="section__title">Events</h2></header><div class="section__content"><p>message.js 从 0.3.0 开始提供了 9 事件。通过 message.js 在 0.3.0 新添加的 $on() 方法监听。</p></div><section class="section"><header class="section__header"><h3 class="section__h3">created</h3></header><div class="section__content"><table class="section__table"><thead class="section__thead"><tr class="section__tr"><th class="section__th">事件名称</th><th class="section__th">说明</th><th class="section__th">回调参数</th></tr></thead><tbody class="section__tbody"><tr class="section__tr"><td class="section__td">created</td><td class="section__td">Message 实例配置信息初始化完成后触发，此时 DOM 元素还没有绘制。</td><td class="section__td">返回实例最终的 attrs 配置属性的（对象）值。</td></tr></tbody></table><h4 class="section__h4">Usage</h4><pre class="section__pre"><code class="section__code">const message = new Message()
+
+message.$on('created', function(attrs) {
+  // this 上下文就是 outline 实例
+  // attrs === outline.attr()
+})
+
+// 当 message 实例的配置信息初始化完毕，就会触发 created 事件
+message.initialize(Message.DEFAULTS)</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">mounted</h3></header><div class="section__content"><table class="section__table"><thead class="section__thead"><tr class="section__tr"><th class="section__th">事件名称</th><th class="section__th">说明</th><th class="section__th">回调参数</th></tr></thead><tbody class="section__tbody"><tr class="section__tr"><td class="section__td">mounted</td><td class="section__td">Message 实例的所有 DOM 元素绘制完毕后触发。</td><td class="section__td">--</td></tr></tbody></table><h4 class="section__h4">Usage</h4><pre class="section__pre"><code class="section__code">const message = new Message()
+
+message.$on('mounted', function() {
+  // do something
+})
+
+// 当 message 实例的所有 DOM 绘制完毕，就会触发 mounted 事件
+message.initialize(Outline.DEFAULTS)</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">beforeOpen</h3></header><div class="section__content"><table class="section__table"><thead class="section__thead"><tr class="section__tr"><th class="section__th">事件名称</th><th class="section__th">说明</th><th class="section__th">回调参数</th></tr></thead><tbody class="section__tbody"><tr class="section__tr"><td class="section__td">beforeOpen</td><td class="section__td">Message 实例显示前事件，在调用 Message 对象的实例 open() 方法后会触发。</td><td class="section__td">--</td></tr></tbody></table><h4 class="section__h4">Usage</h4><pre class="section__pre"><code class="section__code">const message = new Message(Message.DEFAULTS)
+
+outline.$on('beforeOpen', function() {
+  // this 上下文就是 message 实例
+  console.log('this', this)
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">opened</h3></header><div class="section__content"><table class="section__table"><thead class="section__thead"><tr class="section__tr"><th class="section__th">事件名称</th><th class="section__th">说明</th><th class="section__th">回调参数</th></tr></thead><tbody class="section__tbody"><tr class="section__tr"><td class="section__td">opened</td><td class="section__td">Message 实例显示后事件，在调用 Message 对象的实例 open() 方法后会触发。</td><td class="section__td">--</td></tr></tbody></table><h4 class="section__h4">Usage</h4><pre class="section__pre"><code class="section__code">const message = new Message(Message.DEFAULTS)
+
+outline.$on('opened', function() {
+  // this 上下文就是 message 实例
+  console.log('this', this)
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">beforeOpen</h3></header><div class="section__content"><table class="section__table"><thead class="section__thead"><tr class="section__tr"><th class="section__th">事件名称</th><th class="section__th">说明</th><th class="section__th">回调参数</th></tr></thead><tbody class="section__tbody"><tr class="section__tr"><td class="section__td">beforeOpen</td><td class="section__td">Message 实例显示前事件，在调用 Message 对象的实例 open() 方法后会触发。</td><td class="section__td">--</td></tr></tbody></table><h4 class="section__h4">Usage</h4><pre class="section__pre"><code class="section__code">const message = new Message(Message.DEFAULTS)
+
+outline.$on('beforeOpen', function() {
+  // this 上下文就是 message 实例
+  console.log('this', this)
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">opened</h3></header><div class="section__content"><table class="section__table"><thead class="section__thead"><tr class="section__tr"><th class="section__th">事件名称</th><th class="section__th">说明</th><th class="section__th">回调参数</th></tr></thead><tbody class="section__tbody"><tr class="section__tr"><td class="section__td">opened</td><td class="section__td">Message 实例显示后事件，在调用 Message 对象的实例 open() 方法后会触发。</td><td class="section__td">--</td></tr></tbody></table><h4 class="section__h4">Usage</h4><pre class="section__pre"><code class="section__code">const message = new Message(Message.DEFAULTS)
+
+outline.$on('opened', function() {
+  // this 上下文就是 message 实例
+  console.log('this', this)
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">closed</h3></header><div class="section__content"><table class="section__table"><thead class="section__thead"><tr class="section__tr"><th class="section__th">事件名称</th><th class="section__th">说明</th><th class="section__th">回调参数</th></tr></thead><tbody class="section__tbody"><tr class="section__tr"><td class="section__td">closed</td><td class="section__td">Message 实例显示后事件，在调用 Message 对象的实例 close() 方法后会触发。</td><td class="section__td">--</td></tr></tbody></table><h4 class="section__h4">Usage</h4><pre class="section__pre"><code class="section__code">const message = new Message(Message.DEFAULTS)
+
+outline.$on('closed', function() {
+  // this 上下文就是 message 实例
+  console.log('this', this)
+})</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">beforeDestroy</h3></header><div class="section__content"><table class="section__table"><thead class="section__thead"><tr class="section__tr"><th class="section__th">事件名称</th><th class="section__th">说明</th><th class="section__th">回调参数</th></tr></thead><tbody class="section__tbody"><tr class="section__tr"><td class="section__td">beforeDestroy</td><td class="section__td">Message 实例销毁前事件，在调用 Message 对象的实例 destroy() 方法后会触发。</td><td class="section__td">--</td></tr></tbody></table><h4 class="section__h4">Usage</h4><pre class="section__pre"><code class="section__code">const message = new Message(Message.DEFAULTS)
+
+message.$on('beforeDestroy', function() {
+  // this 上下文就是 message 实例
+  console.log('this', this)
+})
+
+message.destroy()</code></pre></div></section><section class="section"><header class="section__header"><h3 class="section__h3">destroyed</h3></header><div class="section__content"><table class="section__table"><thead class="section__thead"><tr class="section__tr"><th class="section__th">事件名称</th><th class="section__th">说明</th><th class="section__th">回调参数</th></tr></thead><tbody class="section__tbody"><tr class="section__tr"><td class="section__td">destroyed</td><td class="section__td">Message 实例销毁后事件，在调用 Message 对象的实例 destroy() 方法后会触发。</td><td class="section__td">--</td></tr></tbody></table><h4 class="section__h4">Usage</h4><pre class="section__pre"><code class="section__code">const message = new Message(Message.DEFAULTS)
+
+message.$on('destroyed', function() {
+  // this 上下文就是 message 实例
+  console.log('this', this)
+})
+
+message.destroy()</code></pre></div></section></section></article><footer class="main__footer" id="footer"><p>Copyright &copy; 2023 <a href="https://github.com/yaohaixiao">Robert Yao</a>, all right reserved.</p><p>Code licensed under&nbsp;<a href="http://opensource.org/licenses/mit-license.html">MIT License</a></p><p>Documentation licensed under<a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a></p><p><a href="https://github.com/yaohaixiao/message.js">View on GitHub</a> ·
+<a href="https://github.com/yaohaixiao/message.js/issues">Issues</a></p></footer></main></div><script src="js/docs.min.js"></script><script src="js/message.min.js"></script></body></html>

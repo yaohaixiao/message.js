@@ -1,6 +1,6 @@
 {
   "name": "@yaohaixiao/message.js",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "message.js - 一个小巧实用的 JavaScript 提示信息工具库。",
   "main": "message.min.js",
   "files": [
@@ -51,7 +51,7 @@
     "@rollup/plugin-commonjs": "^25.0.3",
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/plugin-terser": "^0.4.3",
-    "@yaohaixiao/outline.js": "^3.19.0",
+    "@yaohaixiao/outline.js": "^3.23.3",
     "babel-jest": "^29.5.0",
     "commitlint": "^17.4.4",
     "conventional-changelog-cli": "^2.2.2",

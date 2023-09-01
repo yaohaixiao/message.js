@@ -1,0 +1,28 @@
+section.section
+  header.section__header
+    h3.section__h3 destroyAfterClosed
+  div.section__content
+    h4.section__h4 Description
+    dl.section__dl
+      dt.section__dt Type：
+      dd.section__dd Boolean
+    dl.section__dl
+      dt.section__dt Default：
+      dd.section__dd true
+    p 可选，用来指定提示信息关闭后，是否自动销毁。默认关闭后是自动销毁的。
+    pre.section__pre
+      code.section__code.
+        // 导入 Message 模块
+        import Message from '@yaohaixiao/message.js/message'
+
+        const message = new Message({
+          // 设置为 false，message 可以反复使用
+          destroyAfterClosed: false
+          message: '可选，&lt;a href="#beforeClose"&gt;beforeClose&lt;/a&gt; 用来指定提示信息关闭之前执行的回调函数。'
+        })
+
+        // 调整配置后，再次打开
+        message.open({
+          type: 'success',
+          message: '调整配置后，再次打开'
+        })

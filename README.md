@@ -100,7 +100,8 @@ new Message({
   customClass: '',
   closable: true,
   visible: true,
-  dangerouslyUseHTMLString: true,
+  dangerouslyUseHTMLString: false,
+  destroyAfterClosed: true,
   beforeClose: null
 })
 ```

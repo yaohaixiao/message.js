@@ -1,20 +1,26 @@
 import isString from './utils/types/isString'
-import isObject from './utils/types/isObject'
+import isPlainObject from './utils/types/isPlainObject'
 import isFunction from './utils/types/isFunction'
-import hasOwn from './utils/lang/hasOwn'
+
 import extend from './utils/lang/extend'
 import later from './utils/lang/later'
 import stripScripts from './utils/lang/stripScripts'
 import encodeHTML from './utils/lang/encodeHTML'
 import cloneDeep from './utils/lang/cloneDeep'
 import guid from './utils/lang/guid'
+
 import createElement from './utils/dom/createElement'
 import addClass from './utils/dom/addClass'
 import removeClass from './utils/dom/removeClass'
+import setAttribute from './utils/dom/setAttribute'
+import setAttributes from './utils/dom/setAttributes'
+
 import icon from './utils/icons/icon'
 import paint from './utils/icons/paint'
 import on from './utils/event/on'
 import off from './utils/event/off'
+
+import Base from './base'
 
 const TYPES = ['info', 'success', 'warning', 'error']
 const instances = []
@@ -22,16 +28,18 @@ let instance
 
 paint()
 
-class Message {
+class Message extends Base {
   constructor(options) {
+    super()
     this.attrs = cloneDeep(Message.DEFAULTS)
 
+    this.$el = null
     this.id = ''
     this.closed = false
     this.visible = false
     this.offset = -50
     this.timer = null
-    this.$el = null
+    this.destroyed = false
 
     if (options) {
       this.initialize(options)
@@ -43,6 +51,8 @@ class Message {
     this.id = this.attr('id')
     this.offset = this.attr('offset') || -50
 
+    this.$emit('created', { ...this.attr() })
+
     this.render().addListeners()
 
     if (this.attr('visible')) {
@@ -52,71 +62,29 @@ class Message {
     return this
   }
 
-  /**
-   *
-   * @param {String|Object} [prop]
-   * @param {*} [value]
-   * @return {*|{}|Message}
-   */
-  attr(prop, value) {
-    const attrs = this.attrs
-
-    if (isString(prop)) {
-      // 只能扩展 attrs 中已有的属性
-      if (value && hasOwn(attrs, prop)) {
-        // 更新单个配置信息
-        attrs[prop] = value
-        return this
-      }
-
-      // 只传递 prop 参数，则返回对应的属性值
-      return attrs[prop]
-    } else if (isObject(prop)) {
-      // 批量更新配置信息
-      extend(attrs, prop)
-
-      return this
-    } else if (arguments.length === 0) {
-      // 不传递参数，直接返回整个
-      return attrs
-    }
-
-    return this
-  }
-
   isClosed() {
     return this.closed
   }
 
-  render() {
+  isDestroyed() {
+    return this.destroyed
+  }
+
+  _getClassName() {
     const type = this.attr('type')
-    const message = this.attr('message')
     const effect = this.attr('effect')
     const round = this.attr('round')
     const closable = this.attr('closable')
     const visible = this.attr('visible')
-    const dangerouslyUseHTMLString = this.attr('dangerouslyUseHTMLString')
     const customClass = this.attr('customClass')
-    const iconName = effect === 'light' ? `circle-${type}` : type
     const className = [
       'mjs-message',
       `mjs-message_${type}`,
       `mjs-message_${effect}`
     ]
-    const children = []
-    let iconSize = round ? 20 : 16
-    let $type
-    let $message
-    let $text
-    let $close
-    let $el
 
     if (round) {
       className.push('mjs-message_round')
-
-      if (effect === 'default') {
-        iconSize = 12
-      }
     }
 
     if (!closable) {
@@ -129,6 +97,30 @@ class Message {
 
     if (customClass) {
       className.push(customClass)
+    }
+
+    return className
+  }
+
+  render() {
+    const type = this.attr('type')
+    const message = this.attr('message')
+    const effect = this.attr('effect')
+    const round = this.attr('round')
+    const closable = this.attr('closable')
+    const dangerouslyUseHTMLString = this.attr('dangerouslyUseHTMLString')
+    const className = this._getClassName()
+    const iconName = effect === 'light' ? `circle-${type}` : type
+    const children = []
+    let iconSize = 20
+    let $type
+    let $message
+    let $text
+    let $close
+    let $el
+
+    if (round && effect === 'default') {
+      iconSize = 12
     }
 
     if (effect !== 'plain') {
@@ -173,33 +165,188 @@ class Message {
     )
     $el.style.cssText = `top:-50px;`
     this.$el = $el
-
     document.body.appendChild(this.$el)
+
+    this.$emit('mounted')
+
+    return this
+  }
+
+  _refreshIcon() {
+    const HIDDEN = '.mjs-message_hidden'
+    const $el = this.$el
+    let iconSize = 20
+    let type
+    let effect
+    let round
+    let iconName
+    let $icon
+    let $svg
+    let $use
+
+    if (this.isDestroyed()) {
+      return this
+    }
+
+    $icon = $el.querySelector('.mjs-icon')
+
+    if (!$icon) {
+      return this
+    }
+
+    type = this.attr('type')
+    effect = this.attr('effect')
+    round = this.attr('round')
+
+    if (effect === 'plain') {
+      addClass($icon, HIDDEN)
+    } else {
+      removeClass($icon, HIDDEN)
+
+      if (round && effect === 'default') {
+        iconSize = 12
+      }
+    }
+
+    $svg = $icon.querySelector('.mjs-icon__svg')
+    setAttributes($svg, {
+      style: `width:${iconSize}px;height:${iconSize}px;`
+    })
+
+    $use = $svg.querySelector('use')
+    iconName = effect === 'light' ? `circle-${type}` : type
+    setAttribute($use, 'xlink:href', `#mjs-icon-${iconName}`)
+
+    return this
+  }
+
+  _refreshMessage() {
+    const $el = this.$el
+    let $message
+    let dangerouslyUseHTMLString
+    let message
+    let text
+
+    if (this.isDestroyed()) {
+      return this
+    }
+
+    $message = $el.querySelector('.mjs-message__content')
+    dangerouslyUseHTMLString = this.attr('dangerouslyUseHTMLString')
+    message = this.attr('message')
+
+    if (!dangerouslyUseHTMLString) {
+      text = encodeHTML(stripScripts(message))
+    } else {
+      text = message
+    }
+
+    $message.innerHTML = text
+
+    return this
+  }
+
+  _refreshClose() {
+    const HIDDEN = '.mjs-message_hidden'
+    const $el = this.$el
+    let $close
+    let closable
+
+    if (this.isDestroyed()) {
+      return this
+    }
+
+    $close = $el.querySelector('.mjs-message__close')
+    closable = this.attr('closable')
+
+    if ($close) {
+      if (closable) {
+        addClass($close, HIDDEN)
+      } else {
+        removeClass($close, HIDDEN)
+      }
+    }
+
+    return this
+  }
+
+  _refreshEl() {
+    const $el = this.$el
+    let className
+
+    if (this.isDestroyed()) {
+      return this
+    }
+
+    className = this._getClassName()
+    setAttribute($el, 'className', className.join(' '))
+
+    return this
+  }
+
+  refresh(options) {
+    if (!isPlainObject(options)) {
+      return this
+    }
+
+    this.attr(options)
+      ._refreshIcon()
+      ._refreshMessage()
+      ._refreshClose()
+      ._refreshEl()
 
     return this
   }
 
   clearTimer() {
+    if (this.isDestroyed()) {
+      return this
+    }
+
     if (this.timer) {
       clearTimeout(this.timer)
       this.timer = null
     }
+
+    return this
   }
 
   startTimer(duration) {
+    if (this.isDestroyed()) {
+      return this
+    }
+
     this.timer = later(() => {
+      this.$emit('opened')
       this.close()
     }, duration * 1000)
+
+    return this
   }
 
-  open() {
+  open(options) {
     const $el = this.$el
-    const offset = this.attr('offset')
-    const duration = this.attr('duration')
-    const top = offset && offset >= this.offset ? offset : this.offset
-    const cssRules = `top:${top}px;`
+    let offset
+    let duration
+    let top
+    let cssRules
+
+    if (this.isDestroyed()) {
+      return this
+    }
+
+    if (this.isClosed()) {
+      this.refresh(options)
+    }
+
+    offset = this.attr('offset')
+    duration = this.attr('duration')
+    top = offset && offset >= this.offset ? offset : this.offset
+    cssRules = `top:${top}px;`
 
     this.clearTimer()
+
+    this.$emit('beforeOpen')
 
     later(() => {
       this.visible = true
@@ -211,15 +358,25 @@ class Message {
         this.startTimer(duration)
       }
     }, 100)
+
+    return this
   }
 
   close() {
     const $el = this.$el
-    const beforeClose = this.attr('beforeClose')
     const cssRules = `top:-50px;`
+    let destroyAfterClosed
+    let beforeClose
+
+    if (this.isDestroyed()) {
+      return this
+    }
+
+    destroyAfterClosed = this.attr('destroyAfterClosed')
+    beforeClose = this.attr('beforeClose')
 
     if (isFunction(beforeClose)) {
-      beforeClose(this)
+      beforeClose.call(this)
     }
 
     $el.style.cssText = cssRules
@@ -229,29 +386,40 @@ class Message {
     this.closed = true
 
     later(() => {
-      this.destroy()
+      this.$emit('closed')
+
+      if (destroyAfterClosed) {
+        this.destroy()
+      }
     }, 500)
 
     return this
   }
 
   destroy() {
+    this.$emit('beforeDestroy')
+
+    if (this.isDestroyed()) {
+      return this
+    }
+
     this.removeListeners()
     document.body.removeChild(this.$el)
 
     this.attr(Message.DEFAULTS)
+
     this.id = ''
     this.closed = true
     this.visible = false
     this.offset = -50
+    clearTimeout(this.timer)
     this.timer = null
+    this.destroyed = true
+
     this.$el = null
 
-    return this
-  }
+    this.$emit('afterDestroy')
 
-  reload(options) {
-    this.destroy().initialize(this.attr(options))
     return this
   }
 
@@ -265,7 +433,7 @@ class Message {
     const delay = this.attr('delay')
 
     if (duration <= 0) {
-      return false
+      return this
     }
 
     this.startTimer(delay)
@@ -327,32 +495,33 @@ Message.DEFAULTS = {
   closable: true,
   visible: true,
   dangerouslyUseHTMLString: false,
+  destroyAfterClosed: true,
   beforeClose: null
 }
 
 TYPES.forEach((type) => {
   Message[type] = (options) => {
+    const config = {}
     const id = guid(`mjs-message-`)
-    const beforeClose = options.beforeClose
+    const beforeClose = options.beforeClose || null
     let offset = options.offset || 30
 
-    options = options || {}
-
     if (isString(options)) {
-      options = {
-        message: options
+      config.message = options
+    } else {
+      if (isPlainObject(options)) {
+        extend(config, options)
       }
     }
-    options.id = id
-    options.type = type
-    options.offset = offset
-    options.visible = false
-    options.beforeClose = () => {
-      Message.close(id, beforeClose, instances)
+    config.id = id
+    config.type = type
+    config.offset = offset
+    config.visible = false
+    config.beforeClose = () => {
+      Message.close(id, beforeClose)
     }
 
-    instance = new Message(options)
-
+    instance = new Message(config)
     instances.forEach((item) => {
       offset += item.$el.offsetHeight + 16
     })
@@ -379,7 +548,7 @@ Message.close = (id, beforeClose) => {
 
       // 关闭消息
       if (isFunction(beforeClose)) {
-        beforeClose(instance)
+        beforeClose.call(instance)
       }
 
       instances.splice(i, 1)

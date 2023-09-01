@@ -1,5 +1,5 @@
 import Message from '../../message'
-import Outline from '@yaohaixiao/outline.js/src/outline'
+import Outline from '@yaohaixiao/outline.js/outline'
 
 const defaults = Outline.DEFAULTS
 let outline
@@ -21,6 +21,7 @@ defaults.chapterTextFilter = (text) => {
 outline = new Outline(Outline.DEFAULTS)
 
 Message.info({
+  destroyAfterClosed: false,
   duration: 5,
   message: 'message.js - 一个小巧实用的 JavaScript 提示信息工具库。'
 })

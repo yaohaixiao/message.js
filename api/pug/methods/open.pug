@@ -1,9 +1,17 @@
 section.section
   header.section__header
-    h3.section__h3 open()
+    h3.section__h3 open([options])
   div.section__content
     h4.section__h4 Description
     p open() 方法用于手动显示提示信息。
+    h4.section__h4 Parameters
+      h5.section__h4 options
+      dl.section__dl
+        dt.section__dt Type：
+        dd.section__dd Object|String
+      ul
+        li Object：请参考 API 文档中 Options 参数的说明；
+        li String: message.js 会将参数调整为 { message: options }，直接将参数文本作为 message 输出；
     h4.section__h4 Returns
     dl.section__dl
       dt.section__dt Type：
@@ -23,4 +31,27 @@ section.section
         })
 
         // 手动显示提示信息。
+        // 无参数
         message.open()
+
+        const tip = new Message({
+           // 只有 destroyAfterClosed 参数为 false 时，
+           // 才能保留 Message 实例创建的 DOM 元素，从而
+           // 多次使用 open() 方法显示信息
+           destroyAfterClosed: false,
+           type: 'success',
+           // 不会自动显示
+           visible: false,
+           duration: 0,
+           message: 'open() 方法用于手动显示提示信息。'
+        })
+
+        // String 类型参数
+        tip.open('String 类型参数')
+
+        // Object 类型参数
+        tip.open({
+          // 将显示为普通类型提示信息
+          type: 'info',
+          message: 'Object 类型参数'
+        })

@@ -78,4 +78,31 @@
     background-color: @bg_color;
     color: @fourth_text_color;
   }
+
+  &__table {
+    margin: 1em auto;
+    width: 100%;
+    border-top: 1px solid @border_color;
+  }
+
+  &__th,
+  &__td {
+    padding: 5px 16px;
+    line-height: 26px;
+    border-bottom: 1px solid @border_color;
+  }
+
+  &__th {
+    text-align: center;
+    background-color: @bg_color;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    &__header,
+    &__content {
+      padding: 0 1em;
+    }
+  }
 }

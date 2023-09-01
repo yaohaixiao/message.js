@@ -16,7 +16,7 @@ export default [
     output: {
       name: 'outline',
       file: './docs/js/docs.min.js',
-      format: 'umd',
+      format: 'iife',
       sourcemap: true
     },
     plugins: PLUGIN_CONFIG
