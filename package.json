@@ -6,6 +6,7 @@
   "files": [
     "theme",
     "utils",
+    "base.js",
     "message.css",
     "message.min.css",
     "message.js",

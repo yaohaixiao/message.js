@@ -1,3 +1,15 @@
+# [0.3.0](https://github.com/yaohaixiao/message.js/compare/0.2.0...0.3.0) (2023-09-01)
+
+
+### Features
+
+* 添加 $on() $emit() 和 $off() 方法实现消息订阅发布；
+* 添加 destroyAfterClosed 实现实例化1次，可反复使用；
+* 调整 open() 方法，配合 destroyAfterClosed 配置属性，实现反复显示；
+* 更新 API 文档； ([4245697](https://github.com/yaohaixiao/message.js/commit/4245697488dd032cb228374ca562ca35182bead5))
+
+
+
 # [0.2.0](https://github.com/yaohaixiao/message.js/compare/0.1.0...0.2.0) (2023-08-26)
 
 
