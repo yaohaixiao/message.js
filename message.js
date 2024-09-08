@@ -41,9 +41,9 @@ class Message extends Base {
     this.timer = null
     this.destroyed = false
 
-    if (options) {
-      this.initialize(options)
-    }
+    this.initialize(options)
+
+    return this
   }
 
   initialize(options) {
@@ -55,7 +55,7 @@ class Message extends Base {
 
     this.render().addListeners()
 
-    if (this.attr('visible')) {
+    if (this.attr('visible') && this.getText()) {
       this.open()
     }
 
@@ -68,6 +68,20 @@ class Message extends Base {
 
   isDestroyed() {
     return this.destroyed
+  }
+
+  getText() {
+    const dangerouslyUseHTMLString = this.attr('dangerouslyUseHTMLString')
+    const message = this.attr('message')
+    let text = ''
+
+    if (!dangerouslyUseHTMLString) {
+      text = encodeHTML(stripScripts(message))
+    } else {
+      text = message
+    }
+
+    return text
   }
 
   _getClassName() {
@@ -223,8 +237,6 @@ class Message extends Base {
   _refreshMessage() {
     const $el = this.$el
     let $message
-    let dangerouslyUseHTMLString
-    let message
     let text
 
     if (this.isDestroyed()) {
@@ -232,14 +244,7 @@ class Message extends Base {
     }
 
     $message = $el.querySelector('.mjs-message__content')
-    dangerouslyUseHTMLString = this.attr('dangerouslyUseHTMLString')
-    message = this.attr('message')
-
-    if (!dangerouslyUseHTMLString) {
-      text = encodeHTML(stripScripts(message))
-    } else {
-      text = message
-    }
+    text = this.getText()
 
     $message.innerHTML = text
 
@@ -495,7 +500,7 @@ Message.DEFAULTS = {
   closable: true,
   visible: true,
   dangerouslyUseHTMLString: false,
-  destroyAfterClosed: true,
+  destroyAfterClosed: false,
   beforeClose: null
 }
 
@@ -517,6 +522,7 @@ TYPES.forEach((type) => {
     config.type = type
     config.offset = offset
     config.visible = false
+    config.destroyAfterClosed = true
     config.beforeClose = () => {
       Message.close(id, beforeClose)
     }

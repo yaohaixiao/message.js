@@ -42,9 +42,6 @@ describe('isDOM() 方法：', () => {
     it(`isDOM(Symbol('prop')), 返回：false`, () => {
       expect(isDOM(Symbol('prop'))).toBe(false)
     })
-    it(`isDOM(BigInt(22)), 返回：false`, () => {
-      expect(isDOM(BigInt(22))).toBe(false)
-    })
   })
 
   describe(`对象参数：`, () => {

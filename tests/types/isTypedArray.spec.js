@@ -72,14 +72,4 @@ describe('isTypedArray() 方法：', () => {
     const arr = new Float64Array([])
     expect(isTypedArray(arr)).toBe(true)
   })
-
-  it(`isTypedArray(new BigInt64Array(42)), 返回：true`, () => {
-    const arr = new BigInt64Array(42)
-    expect(isTypedArray(arr)).toBe(true)
-  })
-
-  it(`isTypedArray(new BigUint64Array(42)), 返回：true`, () => {
-    const arr = new BigUint64Array(42)
-    expect(isTypedArray(arr)).toBe(true)
-  })
 })

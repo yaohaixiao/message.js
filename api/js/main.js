@@ -1,8 +1,7 @@
-import Message from '../../message'
 import Outline from '@yaohaixiao/outline.js/outline'
+import Message from '../../message'
 
 const defaults = Outline.DEFAULTS
-let outline
 
 defaults.selector = 'h2,h3'
 defaults.title = false
@@ -18,7 +17,7 @@ defaults.chapterTextFilter = (text) => {
   return text.replace(/\(.*?\)/, '()')
 }
 
-outline = new Outline(Outline.DEFAULTS)
+new Outline(defaults)
 
 Message.info({
   destroyAfterClosed: false,
