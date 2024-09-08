@@ -3,13 +3,22 @@ import Message from '../../message'
 
 const defaults = Outline.DEFAULTS
 
+defaults.parentElement = '#aside'
+defaults.scrollElement = '#main'
+defaults.articleElement = '#article'
 defaults.selector = 'h2,h3'
 defaults.title = false
 defaults.showCode = false
 defaults.position = 'sticky'
-defaults.parentElement = '#aside'
-defaults.scrollElement = '#main'
-defaults.articleElement = '#article'
+defaults.reader = {
+  target: '#article',
+  title: document.querySelector('.main__h1'),
+  allowSpeak: true
+}
+defaults.chapterTextFilter = true
+defaults.anchorLinkFilter = (tag, title, id) => {
+  return `${tag}-${title}-${id}`
+}
 defaults.git = 'https://github.com/yaohaixiao/message.js'
 defaults.tags = 'https://github.com/yaohaixiao/message.js/tags'
 defaults.issues = 'https://github.com/yaohaixiao/message.js/issues'
