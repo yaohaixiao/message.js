@@ -1,3 +1,12 @@
+## [0.3.1](https://github.com/yaohaixiao/message.js/compare/0.3.0...0.3.1) (2024-09-08)
+
+
+### Bug Fix
+
+* 修复 new Message() 不带参数会报错的问题 ([eca50c8](https://github.com/yaohaixiao/message.js/commit/eca50c81477a66f17d124c30b67ce57cee1fe392))
+
+
+
 # [0.3.0](https://github.com/yaohaixiao/message.js/compare/0.2.0...0.3.0) (2023-09-01)
 
 
